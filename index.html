@@ -581,6 +581,20 @@ a {
     margin-top: 4px;
 }
 
+/* ===== REFERENCIAS EN FORMATO APA 7 ===== */
+/* Sangría francesa: la primera línea pegada al margen y las demás hacia adentro */
+.apa-refs p {
+    margin: 0 0 14px;
+    padding-left: 2.2em;
+    text-indent: -2.2em;
+    line-height: 1.8;
+    overflow-wrap: anywhere; /* las URL largas no se salen de la tarjeta */
+}
+
+.apa-refs a {
+    word-break: break-all;
+}
+
 /* ===== ACORDEÓN DE BOTONES (TODAS LAS UNIDADES) ===== */
 .unit-intro {
     color: var(--muted-text);
@@ -988,6 +1002,9 @@ font font {
                 </li>
                 <li><button class="tab-btn" data-tab="UNIDAD3">
                     <span class="i18n" data-es="MULTIMEDIA EN LA INFORMÁTICA" data-en="MULTIMEDIA IN COMPUTING">MULTIMEDIA EN LA INFORMÁTICA</span>
+                </button></li>
+                <li><button class="tab-btn" data-tab="REFERENCIAS">
+                    <span class="i18n" data-es="REFERENCIAS" data-en="REFERENCES">REFERENCIAS</span>
                 </button></li>
             </ul>
         </nav>
@@ -2306,6 +2323,37 @@ font font {
                 <p>Saber usarla bien, y de forma accesible y legal, es lo que hace que un programa se vea y se sienta profesional.</p>
                 <!-- AQUÍ TU IMAGEN -->
                 <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='350' height='250'><rect width='100%25' height='100%25' fill='%23dbe7f2'/><text x='50%25' y='50%25' font-family='Arial' font-size='16' fill='%231a5fa4' text-anchor='middle' dy='.3em'>Aquí va tu imagen</text></svg>" width="350" height="250" alt="ejemplo">
+            </section>
+
+            <!-- ===== PESTAÑA: REFERENCIAS (APA 7) ===== -->
+            <section id="REFERENCIAS" class="tab-panel">
+                <h2 class="i18n" data-es="REFERENCIAS" data-en="REFERENCES">REFERENCIAS</h2>
+                <!-- notranslate: Google no debe traducir los títulos de las obras -->
+                <div class="apa-refs notranslate">
+                    <p>Anthropic. (2026). <em>Claude</em> (versión Opus 5.5) [Modelo de lenguaje de gran tamaño]. <a href="https://claude.ai" target="_blank" rel="noopener">https://claude.ai</a></p>
+                    <p>Azuma, R. T. (1997). A survey of augmented reality. <em>Presence: Teleoperators and Virtual Environments, 6</em>(4), 355–385. <a href="https://doi.org/10.1162/pres.1997.6.4.355" target="_blank" rel="noopener">https://doi.org/10.1162/pres.1997.6.4.355</a></p>
+                    <p>Burdea, G. C. y Coiffet, P. (2003). <em>Virtual reality technology</em> (2.ª ed.). Wiley-Interscience.</p>
+                    <p>de Vega, A. (2017). <em>Animación de elementos</em>. Alfaomega.</p>
+                    <p>GitHub. (s.f.). <em>Acerca de GitHub Pages</em>. GitHub Docs. <a href="https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages" target="_blank" rel="noopener">https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages</a></p>
+                    <p>Glover, J. y Linowes, J. (2019). <em>Complete virtual reality and augmented reality development with Unity</em>. Packt Publishing.</p>
+                    <p>Instituto Politécnico Nacional. (2021). <em>Programa de estudios: Herramientas multimedia. Licenciatura en Ciencias de la Informática, plan 2021</em> [Documento institucional]. Unidad Profesional Interdisciplinaria de Ingeniería y Ciencias Sociales y Administrativas.</p>
+                    <p>Instituto Politécnico Nacional [@IPNoficial]. (s.f.). <em>Himno del #IPN</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=9aHyfqdOUnQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=9aHyfqdOUnQ</a></p>
+                    <p>Khronos Group. (s.f.). <em>WebGL overview</em>. <a href="https://www.khronos.org/webgl/" target="_blank" rel="noopener">https://www.khronos.org/webgl/</a></p>
+                    <p>Marschner, S. y Shirley, P. (2016). <em>Fundamentals of computer graphics</em> (4.ª ed.). CRC Press.</p>
+                    <p>Milgram, P. y Kishino, F. (1994). A taxonomy of mixed reality visual displays. <em>IEICE Transactions on Information and Systems, E77-D</em>(12), 1321–1329.</p>
+                    <p>Mozilla. (s.f.-a). <em>Using CSS custom properties (variables)</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties</a></p>
+                    <p>Mozilla. (s.f.-b). <em>WebGL: 2D and 3D graphics for the web</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API</a></p>
+                    <p>Mozilla. (s.f.-c). <em>mask</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/mask" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/mask</a></p>
+                    <p>Mozilla. (s.f.-d). <em>Intersection Observer API</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API</a></p>
+                    <p>Mozilla. (s.f.-e). <em>&lt;script type="importmap"&gt;</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap</a></p>
+                    <p>Ojeda, N. (2012). <em>Introducción a la multimedia</em>. Red Tercer Milenio.</p>
+                    <p>Ruiz, D. (2018). <em>Manual de producción multimedia: De la idea al remake: Teatro, radio, cine, televisión, internet y más</em>. Ediciones Promonet.</p>
+                    <p>Sutherland, I. E. (1968). A head-mounted three dimensional display. En <em>Proceedings of the December 9–11, 1968, Fall Joint Computer Conference, Part I</em> (pp. 757–764). Association for Computing Machinery. <a href="https://doi.org/10.1145/1476589.1476686" target="_blank" rel="noopener">https://doi.org/10.1145/1476589.1476686</a></p>
+                    <p>Thomas, F. y Johnston, O. (1981). <em>The illusion of life: Disney animation</em>. Abbeville Press.</p>
+                    <p>three.js authors. (s.f.). <em>three.js docs</em>. <a href="https://threejs.org/docs/" target="_blank" rel="noopener">https://threejs.org/docs/</a></p>
+                    <p>World Wide Web Consortium. (2023). <em>Web Content Accessibility Guidelines (WCAG) 2.2</em>. <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">https://www.w3.org/TR/WCAG22/</a></p>
+                    <p>World Wide Web Consortium. (s.f.). <em>WebXR Device API</em>. <a href="https://www.w3.org/TR/webxr/" target="_blank" rel="noopener">https://www.w3.org/TR/webxr/</a></p>
+                </div>
             </section>
 
         </main>
