@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perrito 3D</title>
+    <style>
+/* ===== COLORES (cambian con el tema que manda la página principal) ===== */
+:root {
+    --bg: #f4f8fb;
+    --text: #1a2634;
+    --muted: #4a5a6a;
+    --chip: rgba(13, 59, 102, 0.08);
+    --accent: #1a5fa4;
+}
+
+body.dark {
+    --bg: #1b2530;
+    --text: #e6edf3;
+    --muted: #c3cfda;
+    --chip: rgba(255, 255, 255, 0.08);
+    --accent: #5aa3e8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: transparent;
+}
+
+/* Los colores del tema viven en <body>, así que el fondo también va ahí */
+body {
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+/* Dentro de la página principal el fondo es transparente
+   para que se vea la tarjeta de la unidad */
+body.embedded {
+    background-color: transparent;
+}
+
+#scene {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: grab;
+}
+
+#scene:active {
+    cursor: grabbing;
+}
+
+/* Textos encima del modelo */
+.overlay {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    pointer-events: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.overlay.top {
+    top: 10px;
+}
+
+.overlay.bottom {
+    bottom: 10px;
+    align-items: flex-end;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.hint {
+    font-size: 0.78rem;
+    color: var(--muted);
+    background-color: var(--chip);
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.controls {
+    display: flex;
+    gap: 6px;
+    pointer-events: auto;
+}
+
+.controls button {
+    font: inherit;
+    font-size: 0.78rem;
+    color: var(--text);
+    background-color: var(--chip);
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+/* Mensaje si no se puede cargar Three.js (sin internet) */
+#fallback {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--muted);
+}
+    </style>
+</head>
+<body>
+    <canvas id="scene" aria-label="Modelo 3D de un perrito que se puede girar"></canvas>
+
+    <div class="overlay top">
+        <span class="title" data-es="Modelo 3D de un perrito" data-en="3D model of a puppy">Modelo 3D de un perrito</span>
+        <div class="controls">
+            <button id="spinBtn" data-es="⏸ Pausar giro" data-en="⏸ Pause spin">⏸ Pausar giro</button>
+            <button id="resetBtn" data-es="↺ Centrar" data-en="↺ Reset view">↺ Centrar</button>
+        </div>
+    </div>
+
+    <div class="overlay bottom">
+        <span class="hint" data-es="Arrastra para girar · rueda o pellizca para acercar" data-en="Drag to rotate · scroll or pinch to zoom">Arrastra para girar · rueda o pellizca para acercar</span>
+        <span id="vrSlot" class="controls"></span>
+    </div>
+
+    <div id="fallback" data-es="No se pudo cargar el modelo 3D: se necesita internet para descargar Three.js." data-en="The 3D model could not load: an internet connection is needed to download Three.js.">No se pudo cargar el modelo 3D: se necesita internet para descargar Three.js.</div>
+
+    <!-- Three.js se descarga de un CDN; el "importmap" le dice al navegador dónde está -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script>
+        /* ============ TEMA E IDIOMA ============
+           Se pueden pasar en la URL (?theme=dark&lang=en) o los manda la página
+           principal con postMessage cuando cambias el modo o el idioma. */
+        const params = new URLSearchParams(location.search);
+        if (window.self !== window.top) document.body.classList.add('embedded');
+
+        let spinning = true;
+
+        function applyConfig(theme, lang) {
+            document.body.classList.toggle('dark', theme === 'dark');
+            if (lang === 'es' || lang === 'en') {
+                document.documentElement.lang = lang;
+                document.querySelectorAll('[data-es]').forEach((el) => {
+                    el.textContent = el.dataset[lang];
+                });
+                updateSpinLabel();
+            }
+            if (window.updateSceneTheme) window.updateSceneTheme(theme);
+        }
+
+        function updateSpinLabel() {
+            const btn = document.getElementById('spinBtn');
+            const en = document.documentElement.lang === 'en';
+            btn.textContent = spinning
+                ? (en ? '⏸ Pause spin' : '⏸ Pausar giro')
+                : (en ? '▶ Spin' : '▶ Girar');
+        }
+
+        window.addEventListener('message', (e) => {
+            if (e.data && e.data.type === 'perrito-config') applyConfig(e.data.theme, e.data.lang);
+        });
+
+        applyConfig(params.get('theme') || 'light', params.get('lang') || 'es');
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { VRButton } from 'three/addons/webxr/VRButton.js';
+
+        /* ============ ESCENA, CÁMARA Y RENDER ============ */
+        const canvas = document.getElementById('scene');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.xr.enabled = true; // permite verlo con un visor de realidad virtual
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+        const HOME = new THREE.Vector3(4.2, 2.8, 5.2);
+        camera.position.copy(HOME);
+
+        const controls = new OrbitControls(camera, canvas);
+        controls.target.set(0, 1.2, 0.2);
+        controls.enableDamping = true;
+        controls.enablePan = false;
+        controls.minDistance = 3;
+        controls.maxDistance = 12;
+        controls.maxPolarAngle = Math.PI * 0.49; // no dejar que la cámara pase debajo del piso
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.4;
+
+        /* ============ LUCES ============ */
+        const hemi = new THREE.HemisphereLight(0xffffff, 0x8899aa, 1.4);
+        scene.add(hemi);
+        const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+        sun.position.set(3, 6, 4);
+        sun.castShadow = true;
+        sun.shadow.mapSize.set(1024, 1024);
+        sun.shadow.camera.left = -3;
+        sun.shadow.camera.right = 3;
+        sun.shadow.camera.top = 3;
+        sun.shadow.camera.bottom = -3;
+        scene.add(sun);
+
+        /* ============ MATERIALES (mismos colores que el logo) ============ */
+        const mat = (color, roughness = 0.65) => new THREE.MeshStandardMaterial({ color, roughness });
+        const WHITE = mat(0xf3f5f8);      // cara y cuerpo
+        const NAVY = mat(0x0d3b66);       // orejas, copete, patitas y cola
+        const DARK = mat(0x111821, 0.3);  // ojos y nariz
+        const SHINE = mat(0xffffff, 0.1); // brillo de los ojos
+        const GUINDA = mat(0x8f2a5a, 0.5); // collar color guinda (IPN)
+        const GOLD = new THREE.MeshStandardMaterial({ color: 0xd4a94f, roughness: 0.3, metalness: 0.8 });
+        const TONGUE = mat(0xe57a8a, 0.5);
+
+        // Atajo para crear una figura básica, colocarla y escalarla
+        function part(geometry, material, [x, y, z], [sx, sy, sz] = [1, 1, 1], parent = dog) {
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(x, y, z);
+            mesh.scale.set(sx, sy, sz);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            parent.add(mesh);
+            return mesh;
+        }
+
+        const sphere = (r) => new THREE.SphereGeometry(r, 40, 28);
+        const dog = new THREE.Group();
+        scene.add(dog);
+
+        /* ============ EL PERRITO, HECHO CON FIGURAS BÁSICAS ============ */
+        // Cuerpo: una esfera estirada (elipsoide)
+        const body = part(sphere(1), WHITE, [0, 1.05, -0.1], [0.62, 0.62, 0.95]);
+
+        // Patas: cilindros + esferas aplanadas como patitas
+        const legGeo = new THREE.CylinderGeometry(0.15, 0.13, 0.75, 24);
+        for (const [x, z] of [[-0.3, 0.45], [0.3, 0.45], [-0.3, -0.6], [0.3, -0.6]]) {
+            part(legGeo, WHITE, [x, 0.4, z]);
+            part(sphere(0.17), NAVY, [x, 0.06, z + 0.04], [1, 0.55, 1.2]);
+        }
+
+        // Cola: un pompón (esfera) en la punta de un cilindro, se mueve con un grupo
+        const tail = new THREE.Group();
+        tail.position.set(0, 1.35, -0.95);
+        dog.add(tail);
+        const tailStick = part(new THREE.CylinderGeometry(0.06, 0.08, 0.5, 16), WHITE, [0, 0.2, -0.08], [1, 1, 1], tail);
+        tailStick.rotation.x = -0.45;
+        part(sphere(0.2), NAVY, [0, 0.45, -0.2], [1, 1, 1], tail);
+
+        // Cabeza: grupo para poder inclinarla
+        const head = new THREE.Group();
+        head.position.set(0, 1.75, 0.75);
+        dog.add(head);
+        part(sphere(0.52), WHITE, [0, 0, 0], [1, 0.95, 0.95], head);
+        part(sphere(0.3), WHITE, [0, -0.13, 0.42], [1, 0.8, 0.95], head);        // hocico
+        part(sphere(0.095), DARK, [0, -0.03, 0.7], [1.25, 0.9, 1], head);        // nariz
+        part(sphere(0.07), TONGUE, [0, -0.3, 0.58], [1, 0.5, 1], head);          // lengüita
+        for (const x of [-0.19, 0.19]) {
+            part(sphere(0.075), DARK, [x, 0.12, 0.44], [1, 1.1, 1], head);       // ojos
+            part(sphere(0.022), SHINE, [x + 0.025, 0.15, 0.51], [1, 1, 1], head); // brillo
+        }
+        // Orejas caídas: esferas muy alargadas, color azul
+        for (const s of [-1, 1]) {
+            const ear = part(sphere(0.2), NAVY, [s * 0.46, -0.08, 0.02], [0.6, 1.6, 1.1], head);
+            ear.rotation.z = s * 0.3;
+        }
+        // Copete rizado: anillos (toros) y bolitas, como el logo
+        const curls = [[0, 0.58, 0.05], [-0.2, 0.5, 0.12], [0.2, 0.5, 0.12], [-0.1, 0.55, -0.18], [0.12, 0.56, -0.15]];
+        curls.forEach(([x, y, z], i) => {
+            const ring = part(new THREE.TorusGeometry(0.12, 0.055, 16, 32), NAVY, [x, y, z], [1, 1, 1], head);
+            ring.rotation.set(0.3 + i * 0.5, i * 0.9, 0.2 * i);
+            part(sphere(0.05), NAVY, [x, y, z], [1, 1, 1], head);
+        });
+
+        // Collar color guinda con placa dorada
+        const collar = part(new THREE.TorusGeometry(0.38, 0.075, 16, 48), GUINDA, [0, 1.42, 0.68]);
+        collar.rotation.x = Math.PI / 2 - 0.75;
+        part(new THREE.CylinderGeometry(0.09, 0.09, 0.03, 24), GOLD, [0, 1.17, 0.98]).rotation.x = Math.PI / 2 - 0.5;
+
+        // Piso: un círculo que solo recibe la sombra
+        const ground = new THREE.Mesh(new THREE.CircleGeometry(2.6, 48), new THREE.ShadowMaterial({ opacity: 0.18 }));
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        /* ============ TEMA CLARO / OSCURO ============ */
+        window.updateSceneTheme = (theme) => {
+            const dark = theme === 'dark';
+            hemi.intensity = dark ? 1.0 : 1.4;
+            ground.material.opacity = dark ? 0.35 : 0.18;
+        };
+        window.updateSceneTheme(document.body.classList.contains('dark') ? 'dark' : 'light');
+
+        /* ============ BOTONES ============ */
+        document.getElementById('spinBtn').addEventListener('click', () => {
+            spinning = !spinning;
+            controls.autoRotate = spinning;
+            updateSpinLabel();
+        });
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            camera.position.copy(HOME);
+            controls.target.set(0, 1.2, 0.2);
+        });
+
+        // Botón "Entrar en RV": solo aparece si el dispositivo tiene un visor compatible (WebXR)
+        if (navigator.xr) {
+            navigator.xr.isSessionSupported('immersive-vr').then((ok) => {
+                if (!ok) return;
+                const vrButton = VRButton.createButton(renderer);
+                vrButton.style.position = 'static';
+                document.getElementById('vrSlot').appendChild(vrButton);
+            }).catch(() => {});
+        }
+        // Dentro del visor, el perrito se coloca frente a ti en el piso
+        renderer.xr.addEventListener('sessionstart', () => dog.position.set(0, 0, -2.2));
+        renderer.xr.addEventListener('sessionend', () => dog.position.set(0, 0, 0));
+
+        /* ============ TAMAÑO Y ANIMACIÓN ============ */
+        function resize() {
+            const w = window.innerWidth, h = window.innerHeight;
+            if (!w || !h) return; // la pestaña de la unidad está oculta
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const clock = new THREE.Clock();
+        renderer.setAnimationLoop(() => {
+            if (!window.innerWidth || !window.innerHeight) return; // no dibujar si no se ve
+            const t = clock.getElapsedTime();
+            tail.rotation.z = Math.sin(t * 9) * 0.45;            // mueve la cola
+            head.rotation.z = Math.sin(t * 1.3) * 0.08;          // ladea la cabeza
+            body.scale.y = 0.62 + Math.sin(t * 2.4) * 0.01;      // "respira"
+            controls.update();
+            renderer.render(scene, camera);
+        });
+    </script>
+
+    <!-- Si los módulos no cargan (sin internet), se muestra un aviso -->
+    <script>
+        setTimeout(() => {
+            if (!window.updateSceneTheme) document.getElementById('fallback').style.display = 'flex';
+        }, 6000);
+    </script>
+</body>
+</html>
