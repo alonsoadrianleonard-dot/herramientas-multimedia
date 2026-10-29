@@ -239,7 +239,7 @@ async function checkDevice() {
         cams = devices.filter((d) => d.kind === 'videoinput').length;
     }
     const rows = [
-        ['Gráficos 3D (WebGL 2)', webgl2 ? yes() : no(), 'Dibujar en 3D con la tarjeta gráfica, como el perrito y la galería.'],
+        ['Gráficos 3D (WebGL 2)', webgl2 ? yes() : no(), 'Dibujar en 3D con la tarjeta gráfica, como el perrito 3D.'],
         ['API de realidad extendida (WebXR)', navigator.xr ? yes() : no(), 'Que el navegador pueda hablar con visores de RV y RA.'],
         ['Realidad virtual inmersiva', vr ? yes('Hay un visor') : no('Sin visor'), 'Ver una escena en un visor que sigue tu cabeza.'],
         ['Realidad aumentada inmersiva', ar ? yes() : no(), 'Poner objetos 3D sobre la imagen de la cámara.'],
