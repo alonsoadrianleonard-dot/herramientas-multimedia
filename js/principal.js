@@ -195,3 +195,62 @@ langToggle.addEventListener('click', () => {
         applyManualLanguage('es');
     }
 });
+
+/* ============ 2.3: MINI EDITOR EN VIVO ============
+   El código del cuadro de texto se mete en un <iframe> con sandbox:
+   corre aparte, así un error en el ejemplo no puede romper la página. */
+const pgCode = document.getElementById('pgCode');
+const pgOut = document.getElementById('pgOut');
+const pgStarter = pgCode.value;          // el ejemplo original, para «Restaurar»
+
+function runPlayground() {
+    pgOut.srcdoc = pgCode.value;
+}
+document.getElementById('pgRun').addEventListener('click', runPlayground);
+document.getElementById('pgReset').addEventListener('click', () => {
+    pgCode.value = pgStarter;
+    runPlayground();
+});
+// Tab escribe dos espacios en vez de saltar al siguiente botón
+pgCode.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    e.preventDefault();
+    const { selectionStart: a, selectionEnd: b, value } = pgCode;
+    pgCode.value = value.slice(0, a) + '  ' + value.slice(b);
+    pgCode.selectionStart = pgCode.selectionEnd = a + 2;
+});
+runPlayground();
+
+/* ============ 2.4: DETECTOR DE TECNOLOGÍAS EMERGENTES ============
+   Detección de capacidades: se pregunta al navegador qué puede hacer
+   antes de usarlo. Ninguna prueba pide permisos ni enciende la cámara. */
+async function checkDevice() {
+    const yes = (txt = 'Sí') => `<span class="xr-yes">✓ ${txt}</span>`;
+    const no = (txt = 'No') => `<span class="xr-no">✗ ${txt}</span>`;
+    const webgl2 = !!document.createElement('canvas').getContext('webgl2');
+    let vr = false, ar = false;
+    if (navigator.xr) {
+        vr = await navigator.xr.isSessionSupported('immersive-vr').catch(() => false);
+        ar = await navigator.xr.isSessionSupported('immersive-ar').catch(() => false);
+    }
+    let cams = 0;
+    if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+        const devices = await navigator.mediaDevices.enumerateDevices().catch(() => []);
+        cams = devices.filter((d) => d.kind === 'videoinput').length;
+    }
+    const rows = [
+        ['Gráficos 3D (WebGL 2)', webgl2 ? yes() : no(), 'Dibujar en 3D con la tarjeta gráfica, como el perrito y la galería.'],
+        ['API de realidad extendida (WebXR)', navigator.xr ? yes() : no(), 'Que el navegador pueda hablar con visores de RV y RA.'],
+        ['Realidad virtual inmersiva', vr ? yes('Hay un visor') : no('Sin visor'), 'Ver una escena en un visor que sigue tu cabeza.'],
+        ['Realidad aumentada inmersiva', ar ? yes() : no(), 'Poner objetos 3D sobre la imagen de la cámara.'],
+        ['Cámara', cams > 0 ? yes(`${cams} encontrada${cams > 1 ? 's' : ''}`) : no('No detectada'), 'Ver el mundo real; base de la RA y los filtros.'],
+        ['Sensores de orientación', 'DeviceOrientationEvent' in window ? yes() : no(), 'Saber hacia dónde apunta el celular al moverlo.'],
+        ['Pantalla táctil', navigator.maxTouchPoints > 0 ? yes(`${navigator.maxTouchPoints} puntos`) : no(), 'Interactuar con los dedos, por ejemplo pellizcar para acercar.'],
+        ['Núcleos del procesador', yes(String(navigator.hardwareConcurrency || '?')), 'Más núcleos permiten más tareas a la vez.'],
+        ['Densidad de pantalla', yes(`${window.devicePixelRatio}×`), 'Cuántos píxeles reales tiene cada punto de la página.'],
+    ];
+    document.getElementById('xrRows').innerHTML = rows
+        .map(([name, value, use]) => `<tr><td>${name}</td><td>${value}</td><td>${use}</td></tr>`).join('');
+}
+document.getElementById('xrRecheck').addEventListener('click', checkDevice);
+checkDevice();

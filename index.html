@@ -825,6 +825,65 @@
 
                 <div class="topic-accordion">
 
+                    <!-- 2.2 (introducción) -->
+                    <div class="topic-item">
+                        <button class="topic-btn" data-target="tp220">
+                            <svg class="topic-icon"><use href="#icon-layers"/></svg>
+                            <span class="i18n" data-es="¿Qué es un entorno virtual?" data-en="What is a virtual environment?">¿Qué es un entorno virtual?</span>
+                            <span class="chevron">▾</span>
+                        </button>
+                        <div id="tp220" class="topic-content">
+                            <p>Un <strong>entorno virtual</strong> es un espacio tridimensional generado por computadora en el que una persona puede moverse, mirar a su alrededor e interactuar con objetos en tiempo real (Sherman y Craig, 2018). Puede representar un lugar real, como un museo o un salón, o uno que no existe.</p>
+                            <p>Todo entorno virtual tiene estos componentes:</p>
+                            <div class="media-grid">
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-cube"/></svg>
+                                    <strong>Espacio 3D</strong>
+                                    <p>Los modelos del lugar y de los objetos que hay en él.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-access"/></svg>
+                                    <strong>Usuario o avatar</strong>
+                                    <p>El punto de vista de quien lo recorre; a veces se representa con un personaje.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-steps"/></svg>
+                                    <strong>Navegación</strong>
+                                    <p>La forma de moverse: caminar, volar o «teletransportarse» de un punto a otro.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-gamepad"/></svg>
+                                    <strong>Interacción</strong>
+                                    <p>Tocar, abrir, mover o recoger objetos, y que el entorno responda.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-audio"/></svg>
+                                    <strong>Retroalimentación</strong>
+                                    <p>Imagen, sonido y a veces vibración que reaccionan a lo que hace el usuario.</p>
+                                </div>
+                            </div>
+                            <p>Según el equipo que se usa, hay tres <strong>niveles de inmersión</strong>:</p>
+                            <div class="media-grid">
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-image"/></svg>
+                                    <strong>No inmersivo</strong>
+                                    <p>En la pantalla de una computadora o celular, con mouse, teclado o dedo. Así es el recorrido de esta página.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-eye"/></svg>
+                                    <strong>Semi-inmersivo</strong>
+                                    <p>Pantallas grandes o curvas que llenan parte de la vista, como los simuladores de vuelo.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <svg class="chip-icon"><use href="#icon-vr"/></svg>
+                                    <strong>Inmersivo</strong>
+                                    <p>Un visor de RV cubre toda la vista y sigue los movimientos de la cabeza.</p>
+                                </div>
+                            </div>
+                            <p>Mientras más inmersivo es, más fuerte es la <strong>sensación de presencia</strong>: la impresión de «estar ahí» aunque uno sepa que es una simulación (Slater y Sanchez-Vives, 2016). Para lograrla no basta con buenos gráficos: el entorno tiene que responder rápido, porque un retraso entre el movimiento y la imagen rompe la ilusión y puede marear (Jerald, 2015).</p>
+                        </div>
+                    </div>
+
                     <!-- 2.2.1 -->
                     <div class="topic-item">
                         <button class="topic-btn" data-target="tp221">
@@ -856,7 +915,26 @@
                                     <p>Saltar de una escena a otra, caminar o «teletransportarse» dentro de la RV.</p>
                                 </div>
                             </div>
-                            <p>Se usan en museos virtuales, recorridos de escuelas y universidades, venta de casas y turismo.</p>
+                            <p><strong>¿Cómo se hace un recorrido virtual?</strong> Normalmente en cuatro pasos:</p>
+                            <div class="media-grid">
+                                <div class="media-chip">
+                                    <strong>1. Capturar</strong>
+                                    <p>Se toman fotos 360° desde varios puntos del lugar, o se escanea en 3D.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <strong>2. Unir</strong>
+                                    <p>Las fotos de cada punto se «cosen» (stitching) para formar un panorama completo.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <strong>3. Conectar</strong>
+                                    <p>Se enlazan los panoramas entre sí y se agregan puntos de interés con información.</p>
+                                </div>
+                                <div class="media-chip">
+                                    <strong>4. Publicar</strong>
+                                    <p>Se sube a una página web o se exporta para verlo con un visor de RV.</p>
+                                </div>
+                            </div>
+                            <p>Se usan en museos virtuales, recorridos de escuelas y universidades, venta de casas y turismo. Más abajo hay un ejemplo de entorno virtual que se puede recorrer.</p>
                         </div>
                     </div>
 
@@ -1024,9 +1102,38 @@
                                     <p>Bibliotecas para 3D en la web; con Three.js está hecho el perrito del tema 2.1.1.</p>
                                 </div>
                             </div>
+                            <p>Para elegir un motor conviene pensar en tres cosas: en qué dispositivos va a correr el proyecto (celular, computadora, visor o web), qué lenguaje se domina y qué tanta calidad gráfica se necesita. Unity y Unreal son gratuitos para estudiantes y proyectos pequeños, y Godot es libre y gratuito siempre (Gregory, 2018).</p>
                             <p>Todos funcionan con un <strong>ciclo de juego</strong> (game loop): leen los controles, actualizan el mundo y dibujan la pantalla decenas de veces por segundo.</p>
                         </div>
                     </div>
+                </div>
+
+                <!-- ===== EJEMPLO 2.2: ENTORNO VIRTUAL QUE SE PUEDE RECORRER (Three.js) ===== -->
+                <h4 class="i18n" data-es="Ejemplo: recorre un entorno virtual" data-en="Example: walk through a virtual environment">Ejemplo: recorre un entorno virtual</h4>
+                <p>Esta galería es un entorno virtual no inmersivo hecho con Three.js. Arrastra para mirar alrededor, camina con las flechas o las teclas W A S D (o con los botones en el celular) y haz clic en los <strong>puntos amarillos</strong> para ver la información de cada cuadro.</p>
+                <div id="u2-entorno" class="model-frame dog-stage tour-stage" tabindex="0" aria-label="Galería virtual que se puede recorrer">
+                    <canvas id="tourCanvas" aria-label="Galería virtual en 3D"></canvas>
+                    <div class="dog-ui dog-top">
+                        <span class="dog-title i18n" data-es="Galería virtual · 2.2 Entornos virtuales" data-en="Virtual gallery · 2.2 Virtual environments">Galería virtual · 2.2 Entornos virtuales</span>
+                        <div class="dog-controls">
+                            <button id="tourReset" type="button" class="i18n" data-es="↺ Volver a la entrada" data-en="↺ Back to entrance">↺ Volver a la entrada</button>
+                        </div>
+                    </div>
+                    <div class="dog-ui dog-bottom">
+                        <span class="dog-hint i18n" data-es="Arrastra para mirar · flechas o WASD para caminar · clic en los puntos amarillos" data-en="Drag to look · arrows or WASD to walk · click the yellow dots">Arrastra para mirar · flechas o WASD para caminar · clic en los puntos amarillos</span>
+                        <div class="tour-pad" aria-label="Botones para caminar">
+                            <button type="button" data-move="forward" aria-label="Adelante">▲</button>
+                            <button type="button" data-move="left" aria-label="Izquierda">◀</button>
+                            <button type="button" data-move="back" aria-label="Atrás">▼</button>
+                            <button type="button" data-move="right" aria-label="Derecha">▶</button>
+                        </div>
+                    </div>
+                    <div id="tourInfo" class="tour-info" hidden>
+                        <button id="tourInfoClose" type="button" class="tour-info-close" aria-label="Cerrar">&times;</button>
+                        <strong id="tourInfoTitle"></strong>
+                        <p id="tourInfoText"></p>
+                    </div>
+                    <p id="tourFallback" class="dog-fallback i18n" data-es="No se pudo cargar el entorno virtual: se necesita internet para descargar Three.js." data-en="The virtual environment could not load: an internet connection is needed to download Three.js.">No se pudo cargar el entorno virtual: se necesita internet para descargar Three.js.</p>
                 </div>
 
                 <!-- ===================================================== -->
@@ -1104,6 +1211,48 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- ===== EJEMPLO 2.3: MINI EDITOR DE HTML, CSS Y JAVASCRIPT ===== -->
+                <h4 class="i18n" data-es="Pruébalo: HTML, CSS y JavaScript en vivo" data-en="Try it: live HTML, CSS and JavaScript">Pruébalo: HTML, CSS y JavaScript en vivo</h4>
+                <p>Este mini editor muestra cómo trabajan juntos los tres lenguajes web del tema 2.3.1. Cambia algo del código (por ejemplo el color <code>#ffffff</code> o la velocidad <code>vx = 3</code>) y presiona <strong>Ejecutar</strong> para ver el resultado.</p>
+                <div class="playground notranslate">
+                    <div class="pg-editor">
+                        <div class="pg-bar"><span>código</span>
+                            <span class="pg-actions">
+                                <button id="pgRun" type="button">▶ Ejecutar</button>
+                                <button id="pgReset" type="button">↺ Restaurar</button>
+                            </span>
+                        </div>
+                        <textarea id="pgCode" spellcheck="false" aria-label="Código de ejemplo">&lt;style&gt;
+  body { margin: 0; background: #0d3b66; }
+  canvas { display: block; }
+&lt;/style&gt;
+&lt;canvas id="c" width="400" height="220"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  // Una pelota que rebota:
+  // HTML pone el lienzo, CSS los colores y JavaScript el movimiento.
+  const ctx = document.getElementById('c').getContext('2d');
+  let x = 60, y = 60, vx = 3, vy = 2;
+  function dibujar() {
+    ctx.fillStyle = '#0d3b66';
+    ctx.fillRect(0, 0, 400, 220);
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.fill();
+    x += vx; y += vy;
+    if (x &lt; 18 || x &gt; 382) vx = -vx;
+    if (y &lt; 18 || y &gt; 202) vy = -vy;
+    requestAnimationFrame(dibujar);
+  }
+  dibujar();
+&lt;/script&gt;</textarea>
+                    </div>
+                    <div class="pg-output">
+                        <div class="pg-bar"><span>resultado</span></div>
+                        <iframe id="pgOut" title="Resultado del código" sandbox="allow-scripts"></iframe>
                     </div>
                 </div>
 
@@ -1208,6 +1357,17 @@
                             <p>Los principales <strong>retos</strong> al desarrollar son el consumo de batería, la precisión del seguimiento con poca luz, la privacidad (la cámara siempre está encendida) y el mareo que pueden causar algunas experiencias de RV.</p>
                         </div>
                     </div>
+                </div>
+
+                <!-- ===== EJEMPLO 2.4: ¿QUÉ TECNOLOGÍAS EMERGENTES SOPORTA TU DISPOSITIVO? ===== -->
+                <h4 class="i18n" data-es="¿Qué tecnologías emergentes soporta tu dispositivo?" data-en="Which emerging technologies does your device support?">¿Qué tecnologías emergentes soporta tu dispositivo?</h4>
+                <p>Antes de usar una tecnología emergente, un desarrollador revisa si el dispositivo del usuario la tiene, y si no, ofrece otra opción. A esto se le llama <strong>detección de capacidades</strong>. Esta tabla la hace en tu equipo en este momento:</p>
+                <div class="xr-check">
+                    <table>
+                        <thead><tr><th>Tecnología</th><th>En tu dispositivo</th><th>Para qué sirve</th></tr></thead>
+                        <tbody id="xrRows"></tbody>
+                    </table>
+                    <button id="xrRecheck" type="button" class="xr-btn">↻ Volver a revisar</button>
                 </div>
 
                 <h4 class="i18n" data-es="PA' QUE ESTÉ MÁS CLARO" data-en="TO MAKE IT CLEARER, BRO">PA' QUE ESTÉ MÁS CLARO</h4>
@@ -1490,13 +1650,19 @@
                 <div class="apa-refs notranslate">
                     <p>Anthropic. (2026). <em>Claude</em> (versión Opus 5.5) [Modelo de lenguaje de gran tamaño]. <a href="https://claude.ai" target="_blank" rel="noopener">https://claude.ai</a></p>
                     <p>Azuma, R. T. (1997). A survey of augmented reality. <em>Presence: Teleoperators and Virtual Environments, 6</em>(4), 355–385. <a href="https://doi.org/10.1162/pres.1997.6.4.355" target="_blank" rel="noopener">https://doi.org/10.1162/pres.1997.6.4.355</a></p>
+                    <p>Blender Foundation. (s.f.). <em>Manual de Blender</em>. <a href="https://docs.blender.org/manual/es/latest/" target="_blank" rel="noopener">https://docs.blender.org/manual/es/latest/</a></p>
                     <p>Burdea, G. C. y Coiffet, P. (2003). <em>Virtual reality technology</em> (2.ª ed.). Wiley-Interscience.</p>
                     <p>de Vega, A. (2017). <em>Animación de elementos</em>. Alfaomega.</p>
+                    <p>Epic Games. (s.f.). <em>Documentación de Unreal Engine</em>. <a href="https://dev.epicgames.com/documentation/es-es/unreal-engine" target="_blank" rel="noopener">https://dev.epicgames.com/documentation/es-es/unreal-engine</a></p>
                     <p>GitHub. (s.f.). <em>Acerca de GitHub Pages</em>. GitHub Docs. <a href="https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages" target="_blank" rel="noopener">https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages</a></p>
                     <p>Glover, J. y Linowes, J. (2019). <em>Complete virtual reality and augmented reality development with Unity</em>. Packt Publishing.</p>
-                    <p>Instituto Politécnico Nacional. (2021). <em>Programa de estudios: Herramientas multimedia. Licenciatura en Ciencias de la Informática, plan 2021</em> [Documento institucional]. Unidad Profesional Interdisciplinaria de Ingeniería y Ciencias Sociales y Administrativas.</p>
+                    <p>Godot Engine. (s.f.). <em>Documentación de Godot Engine</em>. <a href="https://docs.godotengine.org/es/stable/" target="_blank" rel="noopener">https://docs.godotengine.org/es/stable/</a></p>
+                    <p>Gregory, J. (2018). <em>Game engine architecture</em> (3.ª ed.). CRC Press.</p>
                     <p>Instituto Politécnico Nacional [@IPNoficial]. (s.f.). <em>Himno del #IPN</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=9aHyfqdOUnQ" target="_blank" rel="noopener">https://www.youtube.com/watch?v=9aHyfqdOUnQ</a></p>
-                    <p>Khronos Group. (s.f.). <em>WebGL overview</em>. <a href="https://www.khronos.org/webgl/" target="_blank" rel="noopener">https://www.khronos.org/webgl/</a></p>
+                    <p>Instituto Politécnico Nacional. (2021). <em>Programa de estudios: Herramientas multimedia. Licenciatura en Ciencias de la Informática, plan 2021</em> [Documento institucional]. Unidad Profesional Interdisciplinaria de Ingeniería y Ciencias Sociales y Administrativas.</p>
+                    <p>Jerald, J. (2015). <em>The VR book: Human-centered design for virtual reality</em>. Association for Computing Machinery; Morgan &amp; Claypool.</p>
+                    <p>Khronos Group. (s.f.-a). <em>OpenXR overview</em>. <a href="https://www.khronos.org/openxr/" target="_blank" rel="noopener">https://www.khronos.org/openxr/</a></p>
+                    <p>Khronos Group. (s.f.-b). <em>WebGL overview</em>. <a href="https://www.khronos.org/webgl/" target="_blank" rel="noopener">https://www.khronos.org/webgl/</a></p>
                     <p>Marschner, S. y Shirley, P. (2016). <em>Fundamentals of computer graphics</em> (4.ª ed.). CRC Press.</p>
                     <p>Milgram, P. y Kishino, F. (1994). A taxonomy of mixed reality visual displays. <em>IEICE Transactions on Information and Systems, E77-D</em>(12), 1321–1329.</p>
                     <p>Mozilla. (s.f.-a). <em>Using CSS custom properties (variables)</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties</a></p>
@@ -1506,9 +1672,12 @@
                     <p>Mozilla. (s.f.-e). <em>&lt;script type="importmap"&gt;</em>. MDN Web Docs. <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap</a></p>
                     <p>Ojeda, N. (2012). <em>Introducción a la multimedia</em>. Red Tercer Milenio.</p>
                     <p>Ruiz, D. (2018). <em>Manual de producción multimedia: De la idea al remake: Teatro, radio, cine, televisión, internet y más</em>. Ediciones Promonet.</p>
+                    <p>Sherman, W. R. y Craig, A. B. (2018). <em>Understanding virtual reality: Interface, application, and design</em> (2.ª ed.). Morgan Kaufmann.</p>
+                    <p>Slater, M. y Sanchez-Vives, M. V. (2016). Enhancing our lives with immersive virtual reality. <em>Frontiers in Robotics and AI, 3</em>, Artículo 74. <a href="https://doi.org/10.3389/frobt.2016.00074" target="_blank" rel="noopener">https://doi.org/10.3389/frobt.2016.00074</a></p>
                     <p>Sutherland, I. E. (1968). A head-mounted three dimensional display. En <em>Proceedings of the December 9–11, 1968, Fall Joint Computer Conference, Part I</em> (pp. 757–764). Association for Computing Machinery. <a href="https://doi.org/10.1145/1476589.1476686" target="_blank" rel="noopener">https://doi.org/10.1145/1476589.1476686</a></p>
                     <p>Thomas, F. y Johnston, O. (1981). <em>The illusion of life: Disney animation</em>. Abbeville Press.</p>
                     <p>three.js authors. (s.f.). <em>three.js docs</em>. <a href="https://threejs.org/docs/" target="_blank" rel="noopener">https://threejs.org/docs/</a></p>
+                    <p>Unity Technologies. (s.f.). <em>Unity manual</em>. <a href="https://docs.unity3d.com/Manual/index.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/index.html</a></p>
                     <p>World Wide Web Consortium. (2023). <em>Web Content Accessibility Guidelines (WCAG) 2.2</em>. <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">https://www.w3.org/TR/WCAG22/</a></p>
                     <p>World Wide Web Consortium. (s.f.). <em>WebXR Device API</em>. <a href="https://www.w3.org/TR/webxr/" target="_blank" rel="noopener">https://www.w3.org/TR/webxr/</a></p>
                 </div>
@@ -1719,6 +1888,213 @@
         // Si Three.js no carga (sin internet) se muestra un aviso en el recuadro
         setTimeout(() => {
             if (!window.dogReady) document.getElementById('dogFallback').style.display = 'flex';
+        }, 8000);
+    </script>
+
+    <!-- ===== ENTORNO VIRTUAL (2.2): galería que se puede recorrer, hecha con Three.js ===== -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        const stage = document.getElementById('u2-entorno');
+        const canvas = document.getElementById('tourCanvas');
+        window.tourReady = true;
+
+        /* ---- Render, escena y cámara en primera persona ---- */
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xdfe9f3);
+        scene.fog = new THREE.Fog(0xdfe9f3, 12, 28);              // niebla: da profundidad
+        const camera = new THREE.PerspectiveCamera(70, 16 / 9, 0.1, 60);
+        const START = { x: 0, z: 4.5, yaw: 0, pitch: -0.05 };
+        const player = { ...START };                              // posición y hacia dónde mira
+        const EYE = 1.6, ROOM = 6, HEIGHT = 4;                     // altura de los ojos y tamaño de la sala
+
+        /* ---- Luces ---- */
+        scene.add(new THREE.HemisphereLight(0xffffff, 0x9aa7b5, 1.8));
+        const lamp = new THREE.PointLight(0xfff3dd, 45, 18);
+        lamp.position.set(0, HEIGHT - 0.4, 0);
+        scene.add(lamp);
+
+        /* ---- La sala: piso, techo y cuatro paredes ---- */
+        const plane = (w, h, color) => new THREE.Mesh(new THREE.PlaneGeometry(w, h),
+            new THREE.MeshStandardMaterial({ color, roughness: 0.9 }));
+        const floor = plane(ROOM * 2, ROOM * 2, 0xb08a63);
+        floor.rotation.x = -Math.PI / 2;
+        scene.add(floor);
+        const ceiling = plane(ROOM * 2, ROOM * 2, 0xffffff);
+        ceiling.rotation.x = Math.PI / 2;
+        ceiling.position.y = HEIGHT;
+        scene.add(ceiling);
+        for (const [x, z, ry] of [[0, -ROOM, 0], [0, ROOM, Math.PI], [-ROOM, 0, Math.PI / 2], [ROOM, 0, -Math.PI / 2]]) {
+            const wall = plane(ROOM * 2, HEIGHT, 0xf4f1ea);
+            wall.position.set(x, HEIGHT / 2, z);
+            wall.rotation.y = ry;
+            scene.add(wall);
+            const band = plane(ROOM * 2, 0.35, 0x8f2a5a);         // franja guinda abajo (color IPN)
+            band.position.set(x * 0.999, 0.18, z * 0.999);
+            band.rotation.y = ry;
+            scene.add(band);
+        }
+
+        /* ---- Cuadros: cada uno es una textura dibujada con el canvas 2D ---- */
+        function poster(title, lines, color) {
+            const c = document.createElement('canvas');
+            c.width = 512; c.height = 360;
+            const g = c.getContext('2d');
+            g.fillStyle = color; g.fillRect(0, 0, 512, 360);
+            g.fillStyle = '#ffffff';
+            g.font = 'bold 42px Arial'; g.fillText(title, 32, 78);
+            g.font = '27px Arial';
+            lines.forEach((line, i) => g.fillText(line, 32, 150 + i * 44));
+            const tex = new THREE.CanvasTexture(c);
+            tex.colorSpace = THREE.SRGBColorSpace;
+            return tex;
+        }
+        const W = ROOM - 0.04;                                    // un poco antes de la pared
+        const POSTERS = [
+            { t: '2.2.1 Recorridos', l: ['Foto 360°, escaneo 3D,', 'puntos de interés', 'y navegación.'], c: '#0d3b66', p: [-2.8, -W], ry: 0,
+              info: 'Un recorrido virtual permite explorar un lugar desde la pantalla o un visor. Se hace capturando fotos 360°, uniéndolas en panoramas y conectándolas con puntos de interés, como los amarillos de esta sala.' },
+            { t: '2.2.2 Software', l: ['Blender, SketchUp,', 'Matterport, 3DVista', 'y A-Frame.'], c: '#1a5fa4', p: [2.8, -W], ry: 0,
+              info: 'Para crear entornos virtuales se usan programas de modelado (Blender, SketchUp), de escaneo (Matterport), de recorridos 360° (3DVista) y bibliotecas web (A-Frame, Three.js).' },
+            { t: '2.2.3 RV y RA', l: ['Visores, celulares,', 'ARCore, ARKit,', 'OpenXR y WebXR.'], c: '#8f2a5a', p: [-W, -2.4], ry: Math.PI / 2,
+              info: 'Las herramientas de RV y RA incluyen equipo (visores como Meta Quest o Apple Vision Pro, celulares) y kits de desarrollo (ARCore, ARKit, Vuforia, OpenXR y WebXR).' },
+            { t: '2.2.4 Aplicaciones', l: ['Educación, medicina,', 'industria, comercio', 'y turismo.'], c: '#2f7d4f', p: [-W, 2.4], ry: Math.PI / 2,
+              info: 'Los entornos virtuales se usan para estudiar en 3D, practicar cirugías, capacitar trabajadores, recorrer edificios antes de construirlos, probar productos y visitar museos desde casa.' },
+            { t: '2.2.5 Motores', l: ['Unity (C#), Unreal', '(C++ y Blueprints)', 'y Godot (libre).'], c: '#b8641c', p: [W, -2.4], ry: -Math.PI / 2,
+              info: 'Un motor de videojuegos resuelve los gráficos, la física, el sonido y los controles. Unity, Unreal y Godot son los más usados para crear RV y RA.' },
+            { t: 'IPN · UPIICSA', l: ['Herramientas', 'Multimedia', 'Unidad 2'], c: '#0d3b66', p: [W, 2.4], ry: -Math.PI / 2,
+              info: 'Esta galería es un ejemplo de entorno virtual no inmersivo: se recorre en la pantalla con mouse, teclado o dedo. Con un visor de RV la misma escena podría ser inmersiva.' },
+        ];
+        const frameMat = new THREE.MeshStandardMaterial({ color: 0x2b2b2b, roughness: 0.5 });
+        const dotMat = new THREE.MeshBasicMaterial({ color: 0xffc533 });
+        const hotspots = [];
+        for (const item of POSTERS) {
+            const group = new THREE.Group();
+            group.position.set(item.p[0], 2, item.p[1]);          // centro del cuadro sobre la pared
+            group.rotation.y = item.ry;                           // girado para mirar hacia la sala
+            const frame = new THREE.Mesh(new THREE.BoxGeometry(3.1, 2.3, 0.08), frameMat);
+            const art = new THREE.Mesh(new THREE.PlaneGeometry(2.9, 2.05),
+                new THREE.MeshStandardMaterial({ map: poster(item.t, item.l, item.c), roughness: 0.7 }));
+            art.position.z = 0.05;
+            const dot = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 14), dotMat);
+            dot.position.set(1.25, -0.9, 0.18);                   // punto de interés, esquina inferior derecha
+            dot.userData = { title: item.t, info: item.info };
+            hotspots.push(dot);
+            group.add(frame, art, dot);
+            scene.add(group);
+        }
+
+        /* ---- Escultura al centro: pedestal + figura que gira ---- */
+        const pedestal = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.55, 1, 32),
+            new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.6 }));
+        pedestal.position.y = 0.5;
+        scene.add(pedestal);
+        const sculpture = new THREE.Mesh(new THREE.IcosahedronGeometry(0.5, 0),
+            new THREE.MeshStandardMaterial({ color: 0x1a5fa4, roughness: 0.35, metalness: 0.3, flatShading: true }));
+        sculpture.position.y = 1.6;
+        scene.add(sculpture);
+        const center = new THREE.Mesh(new THREE.SphereGeometry(0.17, 20, 14), dotMat);
+        center.position.set(0.6, 1.05, 0.25);
+        center.userData = { title: 'Objeto 3D', info: 'Este icosaedro es una primitiva de Three.js con 20 caras planas. Gira en cada cuadro de la animación, igual que el perrito 3D de esta unidad.' };
+        hotspots.push(center);
+        scene.add(center);
+
+        /* ---- Controles: arrastrar para mirar, teclas o botones para caminar ---- */
+        const keys = new Set();
+        let drag = null;
+        canvas.addEventListener('pointerdown', (e) => {
+            drag = { x: e.clientX, y: e.clientY, moved: 0 };
+            canvas.setPointerCapture(e.pointerId);
+            stage.focus({ preventScroll: true });
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            if (!drag) return;
+            const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+            drag.moved += Math.abs(dx) + Math.abs(dy);
+            drag.x = e.clientX; drag.y = e.clientY;
+            player.yaw -= dx * 0.005;                                       // girar a los lados
+            player.pitch = Math.max(-1.1, Math.min(1.1, player.pitch - dy * 0.004)); // mirar arriba/abajo
+        });
+        canvas.addEventListener('pointerup', (e) => {
+            if (drag && drag.moved < 6) pick(e);                            // fue un clic, no un arrastre
+            drag = null;
+        });
+        const KEYMAP = { ArrowUp: 'forward', KeyW: 'forward', ArrowDown: 'back', KeyS: 'back',
+                         ArrowLeft: 'left', KeyA: 'left', ArrowRight: 'right', KeyD: 'right' };
+        stage.addEventListener('keydown', (e) => {
+            if (KEYMAP[e.code]) { keys.add(KEYMAP[e.code]); e.preventDefault(); }
+        });
+        stage.addEventListener('keyup', (e) => keys.delete(KEYMAP[e.code]));
+        stage.addEventListener('blur', () => keys.clear());
+        document.querySelectorAll('.tour-pad button').forEach((btn) => {
+            const move = btn.dataset.move;
+            btn.addEventListener('pointerdown', (e) => { keys.add(move); e.preventDefault(); });
+            for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) btn.addEventListener(ev, () => keys.delete(move));
+        });
+
+        /* ---- Clic en un punto amarillo: rayo desde la cámara (raycasting) ---- */
+        const ray = new THREE.Raycaster();
+        const info = document.getElementById('tourInfo');
+        function pick(e) {
+            const r = canvas.getBoundingClientRect();
+            const mouse = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+            ray.setFromCamera(mouse, camera);
+            const hit = ray.intersectObjects(hotspots)[0];
+            if (!hit) return;
+            document.getElementById('tourInfoTitle').textContent = hit.object.userData.title;
+            document.getElementById('tourInfoText').textContent = hit.object.userData.info;
+            info.hidden = false;
+        }
+        document.getElementById('tourInfoClose').addEventListener('click', () => { info.hidden = true; });
+        document.getElementById('tourReset').addEventListener('click', () => { Object.assign(player, START); info.hidden = true; });
+
+        /* ---- Tamaño y visibilidad (igual que el perrito) ---- */
+        function resize() {
+            const w = stage.clientWidth, h = stage.clientHeight;
+            if (!w || !h) return;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        new ResizeObserver(resize).observe(stage);
+        let onScreen = false;
+        new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; }).observe(stage);
+
+        /* ---- Ciclo: mover al usuario, animar y dibujar ---- */
+        const clock = new THREE.Clock();
+        const SPEED = 3;                                                     // unidades por segundo
+        renderer.setAnimationLoop(() => {
+            const dt = Math.min(clock.getDelta(), 0.05);
+            if (!onScreen || !stage.clientWidth) return;
+            const t = clock.elapsedTime;
+            const fx = -Math.sin(player.yaw), fz = -Math.cos(player.yaw);    // hacia dónde es «adelante»
+            let mx = 0, mz = 0;
+            if (keys.has('forward')) { mx += fx; mz += fz; }
+            if (keys.has('back'))    { mx -= fx; mz -= fz; }
+            if (keys.has('left'))    { mx += fz; mz -= fx; }
+            if (keys.has('right'))   { mx -= fz; mz += fx; }
+            const len = Math.hypot(mx, mz) || 1;
+            const LIMIT = ROOM - 0.7;                                        // no atravesar las paredes
+            player.x = Math.max(-LIMIT, Math.min(LIMIT, player.x + (mx / len) * SPEED * dt));
+            player.z = Math.max(-LIMIT, Math.min(LIMIT, player.z + (mz / len) * SPEED * dt));
+            if (Math.hypot(player.x, player.z) < 0.9) {                      // ni el pedestal
+                const a = Math.atan2(player.z, player.x);
+                player.x = Math.cos(a) * 0.9; player.z = Math.sin(a) * 0.9;
+            }
+            camera.position.set(player.x, EYE, player.z);
+            camera.rotation.set(player.pitch, player.yaw, 0, 'YXZ');
+            sculpture.rotation.y = t * 0.6;
+            sculpture.rotation.x = t * 0.3;
+            const pulse = 1 + Math.sin(t * 3) * 0.18;                        // los puntos «laten»
+            hotspots.forEach((h) => h.scale.setScalar(pulse));
+            renderer.render(scene, camera);
+        });
+    </script>
+    <script>
+        // Si Three.js no carga (sin internet) se muestra un aviso en el recuadro del entorno
+        setTimeout(() => {
+            if (!window.tourReady) document.getElementById('tourFallback').style.display = 'flex';
         }, 8000);
     </script>
 
