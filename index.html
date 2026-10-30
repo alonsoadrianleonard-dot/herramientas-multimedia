@@ -1189,48 +1189,6 @@
                     </div>
                 </div>
 
-                <!-- ===== EJEMPLO 2.3: MINI EDITOR DE HTML, CSS Y JAVASCRIPT ===== -->
-                <h4 class="i18n" data-es="Pruébalo: HTML, CSS y JavaScript en vivo" data-en="Try it: live HTML, CSS and JavaScript">Pruébalo: HTML, CSS y JavaScript en vivo</h4>
-                <p>Este mini editor muestra cómo trabajan juntos los tres lenguajes web del tema 2.3.1. Cambia algo del código (por ejemplo el color <code>#ffffff</code> o la velocidad <code>vx = 3</code>) y presiona <strong>Ejecutar</strong> para ver el resultado.</p>
-                <div class="playground notranslate">
-                    <div class="pg-editor">
-                        <div class="pg-bar"><span>código</span>
-                            <span class="pg-actions">
-                                <button id="pgRun" type="button">▶ Ejecutar</button>
-                                <button id="pgReset" type="button">↺ Restaurar</button>
-                            </span>
-                        </div>
-                        <textarea id="pgCode" spellcheck="false" aria-label="Código de ejemplo">&lt;style&gt;
-  body { margin: 0; background: #0d3b66; }
-  canvas { display: block; }
-&lt;/style&gt;
-&lt;canvas id="c" width="400" height="220"&gt;&lt;/canvas&gt;
-&lt;script&gt;
-  // Una pelota que rebota:
-  // HTML pone el lienzo, CSS los colores y JavaScript el movimiento.
-  const ctx = document.getElementById('c').getContext('2d');
-  let x = 60, y = 60, vx = 3, vy = 2;
-  function dibujar() {
-    ctx.fillStyle = '#0d3b66';
-    ctx.fillRect(0, 0, 400, 220);
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
-    ctx.fill();
-    x += vx; y += vy;
-    if (x &lt; 18 || x &gt; 382) vx = -vx;
-    if (y &lt; 18 || y &gt; 202) vy = -vy;
-    requestAnimationFrame(dibujar);
-  }
-  dibujar();
-&lt;/script&gt;</textarea>
-                    </div>
-                    <div class="pg-output">
-                        <div class="pg-bar"><span>resultado</span></div>
-                        <iframe id="pgOut" title="Resultado del código" sandbox="allow-scripts"></iframe>
-                    </div>
-                </div>
-
                 <!-- ===================================================== -->
                 <!-- 2.4 Creación de herramientas multimedia con el uso de tecnologías emergentes -->
                 <!-- ===================================================== -->

@@ -196,31 +196,6 @@ langToggle.addEventListener('click', () => {
     }
 });
 
-/* ============ 2.3: MINI EDITOR EN VIVO ============
-   El código del cuadro de texto se mete en un <iframe> con sandbox:
-   corre aparte, así un error en el ejemplo no puede romper la página. */
-const pgCode = document.getElementById('pgCode');
-const pgOut = document.getElementById('pgOut');
-const pgStarter = pgCode.value;          // el ejemplo original, para «Restaurar»
-
-function runPlayground() {
-    pgOut.srcdoc = pgCode.value;
-}
-document.getElementById('pgRun').addEventListener('click', runPlayground);
-document.getElementById('pgReset').addEventListener('click', () => {
-    pgCode.value = pgStarter;
-    runPlayground();
-});
-// Tab escribe dos espacios en vez de saltar al siguiente botón
-pgCode.addEventListener('keydown', (e) => {
-    if (e.key !== 'Tab') return;
-    e.preventDefault();
-    const { selectionStart: a, selectionEnd: b, value } = pgCode;
-    pgCode.value = value.slice(0, a) + '  ' + value.slice(b);
-    pgCode.selectionStart = pgCode.selectionEnd = a + 2;
-});
-runPlayground();
-
 /* ============ 2.4: DETECTOR DE TECNOLOGÍAS EMERGENTES ============
    Detección de capacidades: se pregunta al navegador qué puede hacer
    antes de usarlo. Ninguna prueba pide permisos ni enciende la cámara. */
