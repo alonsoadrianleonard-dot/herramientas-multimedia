@@ -1,10 +1,10 @@
 // Recorrido del pasillo de UPIICSA en el navegador: computadora, celular y visor VR (WebXR).
 import * as THREE from 'three';
-import PLANO from './plano.js';
-import { construirEscena } from './escena.js';
-import { Colisiones } from './colisiones.js';
-import { ControlesEscritorio, ControlesCelular } from './controles.js';
-import { ControlesVR } from './vr.js';
+import PLANO from './plano.js?v=202611031500';
+import { construirEscena } from './escena.js?v=202611031500';
+import { Colisiones } from './colisiones.js?v=202611031500';
+import { ControlesEscritorio, ControlesCelular } from './controles.js?v=202611031500';
+import { ControlesVR } from './vr.js?v=202611031500';
 
 const $ = (id) => document.getElementById(id);
 const esCelular = matchMedia('(pointer: coarse)').matches;
@@ -35,30 +35,32 @@ addEventListener('resize', () => {
 
 const { grupo, letrero, panel } = await construirEscena(scene);
 const colisiones = new Colisiones(PLANO);
-const escritorio = new ControlesEscritorio(camera, document.body);
+const escritorio = new ControlesEscritorio(camera, renderer.domElement);
 const celular = esCelular ? new ControlesCelular(camera, $('joystick'), $('palanca'), renderer.domElement) : null;
 const vr = new ControlesVR(renderer, scene, jugador, camera, colisiones);
 
 /* ---------- pantalla de inicio ---------- */
 $('ayuda').innerHTML = esCelular
     ? 'Usa el <b>joystick</b> de la izquierda para caminar y <b>mueve el teléfono</b> para mirar (también puedes deslizar el dedo). Apunta el círculo del centro al letrero para ver la información.'
-    : '<b>W A S D</b> o flechas para caminar, <b>Shift</b> para correr y el <b>mouse</b> para mirar. <b>Esc</b> para pausar. Apunta el círculo del centro al letrero para ver la información.';
+    : '<b>W A S D</b> o flechas para caminar y <b>Shift</b> para correr. Mira con el <b>mouse</b>; si la flecha del mouse sigue visible, <b>mantén el clic y arrastra</b>. <b>Esc</b> o el botón <b>?</b> para pausar. Apunta el círculo del centro al letrero para ver la información.';
 $('estado').textContent = '';
+$('btnEntrar').disabled = false;                  // hasta aquí ya cargó todo
 
 function mostrarInicio(si) {
     $('inicio').hidden = !si;
     $('mira').hidden = si;
     $('joystick').hidden = si || !esCelular;
-    $('btnPausa').hidden = si || !esCelular;
+    $('btnPausa').hidden = si;
 }
 
+// El recorrido empieza siempre con el clic; ya no depende de que el navegador deje capturar el mouse
 $('btnEntrar').addEventListener('click', async () => {
-    if (esCelular) { await celular.activar(); mostrarInicio(false); }
+    mostrarInicio(false);
+    if (esCelular) await celular.activar();
     else escritorio.activar();
 });
-escritorio.bloqueo.addEventListener('lock', () => mostrarInicio(false));
-escritorio.bloqueo.addEventListener('unlock', () => { if (!renderer.xr.isPresenting) mostrarInicio(true); });
-$('btnPausa').addEventListener('click', () => mostrarInicio(true));
+escritorio.addEventListener('pausa', () => { if (!renderer.xr.isPresenting) mostrarInicio(true); });
+$('btnPausa').addEventListener('click', () => { escritorio.pausar(); mostrarInicio(true); });
 
 // Botón «Entrar en VR»: solo aparece si el navegador tiene WebXR y un visor disponible
 if (navigator.xr) {

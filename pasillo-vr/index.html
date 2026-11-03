@@ -13,7 +13,7 @@
         }
     }
     </script>
-    <link rel="stylesheet" href="src/estilos.css">
+    <link rel="stylesheet" href="src/estilos.css?v=202611031500">
 </head>
 <body>
     <!-- Pantalla de inicio: el primer clic o toque activa los controles -->
@@ -21,7 +21,7 @@
         <div class="tarjeta">
             <h1>Pasillo UPIICSA</h1>
             <p id="ayuda"></p>
-            <button id="btnEntrar" type="button">Entrar al recorrido</button>
+            <button id="btnEntrar" type="button" disabled>Entrar al recorrido</button>
             <button id="btnVR" type="button" hidden>Entrar en VR</button>
             <p id="estado">Cargando la escena…</p>
         </div>
@@ -30,6 +30,6 @@
     <div id="joystick" hidden><div id="palanca"></div></div>
     <button id="btnPausa" type="button" hidden aria-label="Ver ayuda">?</button>
 
-    <script type="module" src="src/main.js"></script>
+    <script type="module" src="src/main.js?v=202611031500"></script>
 </body>
 </html>

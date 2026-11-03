@@ -19,7 +19,7 @@
     }
     </script>
     <!-- Estilos de la página -->
-    <link rel="stylesheet" href="css/estilos.css?v=202611022002">
+    <link rel="stylesheet" href="css/estilos.css?v=202611031500">
     <title>HMGRANREPOSITORIO</title>
 </head>
 <body>
@@ -1591,19 +1591,20 @@
                 <h2 class="i18n" data-es="ENTORNO VIRTUAL" data-en="VIRTUAL ENVIRONMENT">ENTORNO VIRTUAL</h2>
                 <h3 class="i18n" data-es="Recorrido virtual: pasillo de UPIICSA" data-en="Virtual tour: UPIICSA walkway">Recorrido virtual: pasillo de UPIICSA</h3>
                 <p>Un pasillo techado de la escuela, a escala real: 10.5 m de largo, 5 m de ancho y 3 m de alto, con la losa de concreto sobre una fila de pilares y las dos puertas de vidrio del edificio al fondo. Se recorre con <strong>W A S D y el mouse</strong> en la computadora, con el <strong>joystick y moviendo el teléfono</strong> en el celular, o con un visor de realidad virtual (Meta Quest u otro con WebXR) presionando <strong>«Entrar en VR»</strong>. En el visor te mueves por teletransporte con el gatillo y giras de 30° en 30° con la palanca. Apunta al letrero de UPIICSA para ver su información.</p>
-                <!-- El recorrido vive en pasillo-vr/; xr-spatial-tracking deja entrar en VR desde el recuadro -->
-                <div class="filter-frame">
-                    <iframe src="pasillo-vr/index.html?v=202611032130" title="Recorrido virtual del pasillo de UPIICSA" allow="xr-spatial-tracking; fullscreen; gyroscope; accelerometer" loading="lazy"></iframe>
-                </div>
-                <p class="video-fallback"><a href="pasillo-vr/index.html?v=202611032130" target="_blank" rel="noopener" class="i18n" data-es="Abrir el recorrido en pantalla completa (recomendado en el visor y el celular)" data-en="Open the tour in full screen (recommended on headsets and phones)">Abrir el recorrido en pantalla completa (recomendado en el visor y el celular)</a></p>
+                <!-- El recorrido se abre en su propia pestaña: ahí funcionan bien el mouse, el giroscopio del celular y el modo VR -->
+                <a class="tour-card" href="pasillo-vr/index.html?v=202611031500" target="_blank" rel="noopener">
+                    <img src="pasillo-vr/assets/vista_previa.jpg" width="960" height="540" alt="Vista desde la entrada del pasillo techado de UPIICSA, con los pilares y las puertas de vidrio al fondo" loading="lazy">
+                    <span class="tour-btn i18n" data-es="▶ Abrir el recorrido virtual" data-en="▶ Open the virtual tour">▶ Abrir el recorrido virtual</span>
+                </a>
+                <p class="video-fallback">En el Meta Quest abre esta página en su navegador, entra al recorrido y presiona «Entrar en VR».</p>
 
                 <h3 class="i18n" data-es="Filtro de realidad aumentada: máscara de burro" data-en="Augmented reality filter: donkey mask">Filtro de realidad aumentada: máscara de burro</h3>
                 <p>Este es el prototipo de un filtro para TikTok hecho con seguimiento de cara: una máscara de burro con cresta y paliacate guindas, en honor al Politécnico. Presiona <strong>«Probar con mi cámara»</strong> y el burro aparece sobre tu cabeza; <strong>toca la pantalla</strong> para cambiar el color del pelaje entre blanco, gris y café, y <strong>abre la boca</strong> para que el burro la abra. Si no quieres usar la cámara, la vista previa lo muestra en una cabeza de prueba.</p>
                 <!-- El prototipo vive en filtro-tiktok/prototipo-web; allow="camera" deja que use la cámara dentro del recuadro -->
                 <div class="filter-frame">
-                    <iframe src="filtro-tiktok/prototipo-web/index.html?v=202611032130" title="Prototipo del filtro de realidad aumentada" allow="camera; fullscreen" loading="lazy"></iframe>
+                    <iframe src="filtro-tiktok/prototipo-web/index.html?v=202611031500" title="Prototipo del filtro de realidad aumentada" allow="camera; fullscreen" loading="lazy"></iframe>
                 </div>
-                <p class="video-fallback"><a href="filtro-tiktok/prototipo-web/index.html?v=202611032130" target="_blank" rel="noopener" class="i18n" data-es="Abrir el filtro en pantalla completa (mejor en el celular)" data-en="Open the filter in full screen (better on a phone)">Abrir el filtro en pantalla completa (mejor en el celular)</a></p>
+                <p class="video-fallback"><a href="filtro-tiktok/prototipo-web/index.html?v=202611031500" target="_blank" rel="noopener" class="i18n" data-es="Abrir el filtro en pantalla completa (mejor en el celular)" data-en="Open the filter in full screen (better on a phone)">Abrir el filtro en pantalla completa (mejor en el celular)</a></p>
                 <p><strong>Nota:</strong> la cámara y el modo VR solo funcionan en la página publicada (HTTPS). La versión para TikTok se monta en Effect House.</p>
             </section>
 

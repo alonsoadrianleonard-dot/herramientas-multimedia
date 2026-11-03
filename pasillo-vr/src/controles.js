@@ -1,6 +1,5 @@
 // Controles fuera de VR: computadora (WASD + mouse) y celular (joystick táctil + mover el teléfono).
 import * as THREE from 'three';
-import { PointerLockControls } from 'three/addons/controls/PointerLockControls.js';
 
 const ARRIBA = new THREE.Vector3(0, 1, 0);
 const frente = new THREE.Vector3(), derecha = new THREE.Vector3();
@@ -17,18 +16,65 @@ function caminar(camera, jugador, colisiones, adelante, lado, distancia) {
     colisiones.mover(jugador.position, dx, dz);
 }
 
-export class ControlesEscritorio {
+// El recorrido empieza aunque el navegador no deje capturar el mouse (pointer lock),
+// por ejemplo dentro de un iframe: en ese caso se mira arrastrando con el botón presionado.
+export class ControlesEscritorio extends THREE.EventDispatcher {
     constructor(camera, dom) {
+        super();
         this.camera = camera;
-        this.bloqueo = new PointerLockControls(camera, dom);
+        this.dom = dom;
+        this.activo = false;
+        this.arrastrando = false;
+        this.giro = new THREE.Euler(0, 0, 0, 'YXZ');
         this.teclas = new Set();
-        addEventListener('keydown', (e) => this.teclas.add(e.code));
+        addEventListener('keydown', (e) => {
+            if (!this.activo) return;
+            this.teclas.add(e.code);
+            if (e.code.startsWith('Arrow') || e.code === 'Space') e.preventDefault();   // que no se mueva la página de fuera
+        });
         addEventListener('keyup', (e) => this.teclas.delete(e.code));
-        addEventListener('blur', () => this.teclas.clear());
+        addEventListener('blur', () => { this.teclas.clear(); this.arrastrando = false; });
+
+        dom.addEventListener('mousedown', (e) => {
+            if (!this.activo) return;
+            if (!this.capturado) this.capturar();          // con un clic se intenta capturar el mouse otra vez
+            this.arrastrando = true;
+        });
+        addEventListener('mouseup', () => { this.arrastrando = false; });
+        addEventListener('mousemove', (e) => {
+            if (!this.activo || !(this.capturado || this.arrastrando)) return;
+            this.giro.setFromQuaternion(this.camera.quaternion);
+            this.giro.y -= e.movementX * 0.0025;
+            this.giro.x = THREE.MathUtils.clamp(this.giro.x - e.movementY * 0.0025, -1.4, 1.4);
+            this.camera.quaternion.setFromEuler(this.giro);
+        });
+        document.addEventListener('pointerlockchange', () => {
+            if (!this.capturado && this.estabaCapturado && this.activo) {   // Esc: pausa
+                this.activo = false;
+                this.dispatchEvent({ type: 'pausa' });
+            }
+            this.estabaCapturado = this.capturado;
+        });
     }
 
-    get activo() { return this.bloqueo.isLocked; }
-    activar() { this.bloqueo.lock(); }
+    get capturado() { return document.pointerLockElement === this.dom; }
+
+    capturar() {
+        try {
+            const r = this.dom.requestPointerLock && this.dom.requestPointerLock();
+            if (r && r.catch) r.catch(() => { /* sin captura: se mira arrastrando */ });
+        } catch { /* el navegador no lo permite aquí */ }
+    }
+
+    activar() {
+        this.activo = true;
+        this.capturar();
+    }
+
+    pausar() {
+        this.activo = false;
+        if (this.capturado) document.exitPointerLock();
+    }
 
     actualizar(dt, jugador, colisiones) {
         if (!this.activo) return;

@@ -1,7 +1,7 @@
 // Construye el pasillo de UPIICSA con primitivas (cajas y planos), a escala real en metros.
 // Ejes: +X = este, +Y = arriba, -Z = norte (hacia el edificio). Las medidas vienen de plano.js.
 import * as THREE from 'three';
-import PLANO from './plano.js';
+import PLANO from './plano.js?v=202611031500';
 
 const cargador = new THREE.TextureLoader();
 async function textura(nombre, { repetir = true, srgb = true } = {}) {
