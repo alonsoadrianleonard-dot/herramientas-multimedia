@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Lentes futuristas · prototipo</title>
+    <title>Cara de burro · prototipo</title>
     <link rel="icon" href="data:,">  <!-- sin ícono: evita una petición que da 404 -->
     <script type="importmap">
     {
@@ -17,7 +17,7 @@
         :root { --navy: #0d3b66; --guinda: #8f2a5a; --bg: #f4f8fb; --text: #1a2634; }
         * { box-sizing: border-box; }
         html, body { margin: 0; height: 100%; font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--text); }
-        /* Escenario: misma proporción que el video, así los lentes caen justo en la cara */
+        /* Escenario: misma proporción que el video, así el burro cae justo en la cara */
         #stage { position: relative; width: 100%; max-width: 600px; margin: 0 auto; aspect-ratio: 4 / 3;
                  background: radial-gradient(circle at 50% 40%, #ffffff, #dbe7f2); overflow: hidden; border-radius: 12px; }
         #video, #canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -37,13 +37,13 @@
 <body>
     <div id="stage">
         <video id="video" playsinline muted></video>
-        <canvas id="canvas" aria-label="Prototipo del filtro: lentes futuristas"></canvas>
-        <span id="tapHint">Toca la pantalla para cambiar el color</span>
+        <canvas id="canvas" aria-label="Prototipo del filtro: cara de burro"></canvas>
+        <span id="tapHint">Toca la pantalla para cambiar el color del burro</span>
     </div>
     <div class="bar">
         <button id="btnCamera" class="primary" type="button">📷 Probar con mi cámara</button>
         <button id="btnPreview" type="button">🧑 Vista previa sin cámara</button>
-        <button id="btnColor" type="button">🎨 Color: azul</button>
+        <button id="btnColor" type="button">🎨 Color: blanco</button>
     </div>
     <p id="status">Vista previa: arrastra para girar la cabeza de prueba.</p>
 
@@ -78,10 +78,10 @@
         face.matrixAutoUpdate = false;
         scene.add(face);
 
-        // Ocultador: una cabeza invisible que tapa las patillas cuando pasan por detrás
+        // Ocultador: una cabeza invisible que tapa lo que queda detrás de la cabeza
         const occluder = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 20),
             new THREE.MeshBasicMaterial({ colorWrite: false }));
-        occluder.scale.set(7.0, 9.0, 5.6);               // más plana que la cara: no tapa el visor
+        occluder.scale.set(7.0, 9.0, 5.6);               // más plana que la cara: no tapa el hocico
         occluder.position.set(0, 1.5, -0.6);
         occluder.renderOrder = -1;
         face.add(occluder);
@@ -105,10 +105,11 @@
         }
         face.add(dummy);
 
-        /* ---------- lentes ---------- */
-        const COLORS = ['azul', 'guinda', 'dorado'];
+        /* ---------- burro ---------- */
+        const COLORS = ['blanco', 'gris', 'cafe'];
         const textures = {};
-        let lensMesh = null, colorIndex = 0;
+        const furMeshes = [];                     // orejas y pelaje de la cabeza: cambian de color
+        let colorIndex = 0;
         const texLoader = new THREE.TextureLoader();
         for (const c of COLORS) {
             const t = texLoader.load(R.texturas[c]);
@@ -117,37 +118,37 @@
             textures[c] = t;
         }
         new GLTFLoader().load(R.modelo, (gltf) => {
-            const glasses = gltf.scene;
-            glasses.scale.setScalar(CM);                   // metros → centímetros
-            glasses.position.set(...R.posicion.map((v) => v * CM));   // regresa el pivote a su lugar en la cabeza
-            glasses.traverse((o) => {
-                if (o.isMesh && o.name.startsWith('lente')) lensMesh = o;
+            const donkey = gltf.scene;
+            donkey.scale.setScalar(CM);                   // metros → centímetros
+            donkey.position.set(...R.posicion.map((v) => v * CM));   // regresa el pivote a su lugar en la cabeza
+            donkey.traverse((o) => {
+                if (o.isMesh && (o.name === 'orejas' || o.name === 'cabeza')) furMeshes.push(o);
                 if (o.isMesh) o.renderOrder = 1;
             });
-            face.add(glasses);
+            face.add(donkey);
             window.filtroListo = true;
         }, undefined, (e) => { statusEl.textContent = 'No se pudo cargar el modelo: ' + e.message; });
 
         function nextColor() {
             colorIndex = (colorIndex + 1) % COLORS.length;
             const c = COLORS[colorIndex];
-            if (lensMesh) { lensMesh.material.map = textures[c]; lensMesh.material.needsUpdate = true; }
-            btnColor.textContent = '🎨 Color: ' + c;
+            for (const m of furMeshes) { m.material.map = textures[c]; m.material.needsUpdate = true; }
+            btnColor.textContent = '🎨 Color: ' + (c === 'cafe' ? 'café' : c);
         }
         btnColor.addEventListener('click', nextColor);
 
         /* ---------- vista previa (sin cámara) ---------- */
         const controls = new OrbitControls(camera, canvas);
-        controls.target.set(0, 2, 0);
+        controls.target.set(0, 4, 0);
         controls.enablePan = false;
-        controls.minDistance = 25; controls.maxDistance = 90;
+        controls.minDistance = 30; controls.maxDistance = 110;
         controls.autoRotate = true; controls.autoRotateSpeed = 1.2;
         function startPreview() {
             stopCamera();
             document.body.classList.remove('camera');
             dummy.visible = true; occluder.visible = false;
             face.matrix.identity();
-            camera.position.set(20, 10, 38);
+            camera.position.set(22, 10, 52);
             controls.enabled = true;
             statusEl.textContent = 'Vista previa: arrastra para girar la cabeza de prueba y toca para cambiar el color.';
             resize(4 / 3);
@@ -183,7 +184,7 @@
                 controls.enabled = false;
                 camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
                 resize(video.videoWidth / video.videoHeight);
-                statusEl.textContent = 'Cámara activa: mira a la cámara y toca la pantalla para cambiar el color.';
+                statusEl.textContent = 'Cámara activa: mira a la cámara y toca la pantalla para cambiar el color del burro.';
             } catch (e) {
                 statusEl.textContent = 'No se pudo usar la cámara: ' + e.message;
                 startPreview();
