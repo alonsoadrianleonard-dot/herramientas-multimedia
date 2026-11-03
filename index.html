@@ -1589,8 +1589,14 @@
             <!-- ===== PESTAÑA: ENTORNO VIRTUAL (espacio reservado, aún sin implementar) ===== -->
             <section id="ENTORNO" class="tab-panel">
                 <h2 class="i18n" data-es="ENTORNO VIRTUAL" data-en="VIRTUAL ENVIRONMENT">ENTORNO VIRTUAL</h2>
-                <p class="unit-intro i18n" data-es="Próximamente: aquí se montará un entorno virtual." data-en="Coming soon: a virtual environment will be set up here.">Próximamente: aquí se montará un entorno virtual.</p>
-                <!-- AQUÍ VA EL ENTORNO VIRTUAL -->
+                <h3 class="i18n" data-es="Filtro de realidad aumentada: lentes futuristas" data-en="Augmented reality filter: futuristic glasses">Filtro de realidad aumentada: lentes futuristas</h3>
+                <p>Este es el prototipo de un filtro para TikTok hecho con seguimiento de cara. Presiona <strong>«Probar con mi cámara»</strong> y los lentes aparecen sobre tu cara; <strong>toca la pantalla</strong> para cambiar el color del visor entre azul, guinda y dorado. Si no quieres usar la cámara, la vista previa muestra los lentes en una cabeza de prueba.</p>
+                <!-- El prototipo vive en filtro-tiktok/prototipo-web; allow="camera" deja que use la cámara dentro del recuadro -->
+                <div class="filter-frame">
+                    <iframe src="filtro-tiktok/prototipo-web/index.html" title="Prototipo del filtro de realidad aumentada" allow="camera; fullscreen" loading="lazy"></iframe>
+                </div>
+                <p class="video-fallback"><a href="filtro-tiktok/prototipo-web/index.html" target="_blank" rel="noopener" class="i18n" data-es="Abrir el filtro en pantalla completa (mejor en el celular)" data-en="Open the filter in full screen (better on a phone)">Abrir el filtro en pantalla completa (mejor en el celular)</a></p>
+                <p><strong>Nota:</strong> la cámara solo funciona en la página publicada (HTTPS). La versión para TikTok se monta en Effect House.</p>
             </section>
 
             <!-- ===== PESTAÑA: REFERENCIAS (APA 7) ===== -->

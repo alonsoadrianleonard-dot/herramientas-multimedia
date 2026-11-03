@@ -343,6 +343,22 @@ body {
     color: var(--muted-text);
 }
 
+/* ===== ENTORNO VIRTUAL: recuadro del filtro de realidad aumentada ===== */
+.filter-frame {
+    width: 100%;
+    height: 600px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 12px 0 8px;
+}
+
+.filter-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
 /* ===== ÁREA DE CONTENIDO ===== */
 .content-area {
     flex: 1;
