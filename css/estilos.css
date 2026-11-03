@@ -343,38 +343,6 @@ body {
     color: var(--muted-text);
 }
 
-/* ===== 2.4: DETECTOR DE TECNOLOGÍAS ===== */
-.xr-check table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-}
-
-.xr-check th,
-.xr-check td {
-    text-align: left;
-    padding: 8px 10px;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-}
-
-.xr-check th {
-    color: var(--heading);
-}
-
-.xr-yes { color: #2f9e5a; font-weight: bold; }
-.xr-no  { color: #c0392b; font-weight: bold; }
-
-.xr-btn {
-    margin: 12px 0 24px;
-    padding: 6px 14px;
-    border: 1px solid var(--accent);
-    border-radius: 6px;
-    background-color: var(--card-bg);
-    color: var(--text);
-    cursor: pointer;
-}
-
 /* ===== ÁREA DE CONTENIDO ===== */
 .content-area {
     flex: 1;
