@@ -30,7 +30,7 @@ pasillo-vr/
 
 | Dispositivo | Caminar | Mirar | Otros |
 |---|---|---|---|
-| Computadora | W A S D o flechas (Shift para correr) | Mouse (clic en «Entrar al recorrido») | Esc para pausar |
+| Computadora | W A S D o flechas (Shift para correr) | Mouse. Si el navegador no deja capturarlo (por ejemplo dentro de un iframe), mantén el clic y arrastra | Esc o el botón ? para pausar |
 | Celular | Joystick de la esquina inferior izquierda | Mover el teléfono o deslizar el dedo | Botón ? para ver la ayuda |
 | Visor VR | Mantén el gatillo, apunta al piso y suelta para teletransportarte | Mover la cabeza | Palanca a la izquierda o derecha: giro de 30° |
 
