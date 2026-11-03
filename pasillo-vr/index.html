@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <title>Pasillo UPIICSA · realidad virtual</title>
+    <link rel="icon" href="data:,">
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <link rel="stylesheet" href="src/estilos.css">
+</head>
+<body>
+    <!-- Pantalla de inicio: el primer clic o toque activa los controles -->
+    <div id="inicio">
+        <div class="tarjeta">
+            <h1>Pasillo UPIICSA</h1>
+            <p id="ayuda"></p>
+            <button id="btnEntrar" type="button">Entrar al recorrido</button>
+            <button id="btnVR" type="button" hidden>Entrar en VR</button>
+            <p id="estado">Cargando la escena…</p>
+        </div>
+    </div>
+    <div id="mira" hidden></div>
+    <div id="joystick" hidden><div id="palanca"></div></div>
+    <button id="btnPausa" type="button" hidden aria-label="Ver ayuda">?</button>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

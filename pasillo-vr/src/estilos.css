@@ -1,0 +1,27 @@
+:root { --guinda: #800032; --texto: #f2f4f7; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #cfe3f3; font-family: Arial, Helvetica, sans-serif; }
+canvas { display: block; touch-action: none; }
+
+#inicio { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(12, 18, 26, 0.55); z-index: 10; padding: 16px; }
+#inicio[hidden] { display: none; }
+.tarjeta { background: rgba(18, 24, 32, 0.92); color: var(--texto); border-radius: 14px; padding: 22px 26px; max-width: 440px;
+           width: 100%; border-top: 6px solid var(--guinda); text-align: center; }
+.tarjeta h1 { margin: 0 0 10px; font-size: 1.5rem; }
+#ayuda { font-size: 0.95rem; line-height: 1.45; text-align: left; margin: 0 0 16px; }
+.tarjeta button { display: block; width: 100%; margin: 8px 0; padding: 12px; font: bold 1rem Arial, sans-serif; border-radius: 10px;
+                  border: 0; cursor: pointer; background: #fff; color: var(--guinda); }
+.tarjeta button:disabled { opacity: 0.5; cursor: default; }
+#btnVR { background: var(--guinda); color: #fff; }
+#estado { font-size: 0.85rem; color: #b8c2cf; margin: 10px 0 0; min-height: 1.2em; }
+
+#mira { position: fixed; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.9); box-shadow: 0 0 3px #000; pointer-events: none; z-index: 5; }
+#mira.activa { background: var(--guinda); }
+
+#joystick { position: fixed; left: 24px; bottom: 28px; width: 130px; height: 130px; border-radius: 50%; z-index: 6;
+            background: rgba(255, 255, 255, 0.18); border: 2px solid rgba(255, 255, 255, 0.55); touch-action: none; }
+#palanca { position: absolute; left: 50%; top: 50%; width: 56px; height: 56px; margin: -28px 0 0 -28px; border-radius: 50%;
+           background: rgba(255, 255, 255, 0.75); }
+#btnPausa { position: fixed; right: 16px; top: 16px; width: 40px; height: 40px; border-radius: 50%; border: 0; z-index: 6;
+            font: bold 1.1rem Arial, sans-serif; background: rgba(18, 24, 32, 0.75); color: #fff; cursor: pointer; }

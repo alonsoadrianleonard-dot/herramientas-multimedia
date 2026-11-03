@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Cara de burro · prototipo</title>
+    <title>Máscara de burro · prototipo</title>
     <link rel="icon" href="data:,">  <!-- sin ícono: evita una petición que da 404 -->
     <script type="importmap">
     {
@@ -37,8 +37,8 @@
 <body>
     <div id="stage">
         <video id="video" playsinline muted></video>
-        <canvas id="canvas" aria-label="Prototipo del filtro: cara de burro"></canvas>
-        <span id="tapHint">Toca la pantalla para cambiar el color del burro</span>
+        <canvas id="canvas" aria-label="Prototipo del filtro: máscara de burro"></canvas>
+        <span id="tapHint">Toca para cambiar el color · abre la boca</span>
     </div>
     <div class="bar">
         <button id="btnCamera" class="primary" type="button">📷 Probar con mi cámara</button>
@@ -48,7 +48,7 @@
     <p id="status">Vista previa: arrastra para girar la cabeza de prueba.</p>
 
     <!-- Modelos y texturas del filtro (generado por preparar_prototipo.py) -->
-    <script src="recursos.js?v=202611022002"></script>
+    <script src="recursos.js?v=202611031930"></script>
 
     <script type="module">
         import * as THREE from 'three';
@@ -109,6 +109,7 @@
         const COLORS = ['blanco', 'gris', 'cafe'];
         const textures = {};
         const furMeshes = [];                     // orejas y pelaje de la cabeza: cambian de color
+        let jaw = null, jawOpen = 0;              // la mandíbula gira sobre su bisagra al abrir la boca
         let colorIndex = 0;
         const texLoader = new THREE.TextureLoader();
         for (const c of COLORS) {
@@ -125,6 +126,13 @@
                 if (o.isMesh && (o.name === 'orejas' || o.name === 'cabeza')) furMeshes.push(o);
                 if (o.isMesh) o.renderOrder = 1;
             });
+            const mand = donkey.getObjectByName('mandibula');
+            if (mand) {
+                jaw = new THREE.Group();
+                jaw.position.set(...R.bisagra.map((v, i) => v - R.posicion[i]));   // bisagra, en el espacio del modelo
+                mand.parent.add(jaw);
+                jaw.attach(mand);
+            }
             face.add(donkey);
             window.filtroListo = true;
         }, undefined, (e) => { statusEl.textContent = 'No se pudo cargar el modelo: ' + e.message; });
@@ -173,7 +181,7 @@
                     const files = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.2.0/wasm');
                     landmarker = await FaceLandmarker.createFromOptions(files, {
                         baseOptions: { modelAssetPath: 'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task', delegate: 'GPU' },
-                        runningMode: 'VIDEO', numFaces: 1, outputFacialTransformationMatrixes: true,
+                        runningMode: 'VIDEO', numFaces: 1, outputFacialTransformationMatrixes: true, outputFaceBlendshapes: true,
                     });
                 }
                 stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
@@ -184,7 +192,7 @@
                 controls.enabled = false;
                 camera.position.set(0, 0, 0); camera.rotation.set(0, 0, 0);
                 resize(video.videoWidth / video.videoHeight);
-                statusEl.textContent = 'Cámara activa: mira a la cámara y toca la pantalla para cambiar el color del burro.';
+                statusEl.textContent = 'Cámara activa: abre la boca para que el burro la abra y toca la pantalla para cambiar el color.';
             } catch (e) {
                 statusEl.textContent = 'No se pudo usar la cámara: ' + e.message;
                 startPreview();
@@ -214,6 +222,10 @@
                 const m = res.facialTransformationMatrixes && res.facialTransformationMatrixes[0];
                 face.visible = !!m;
                 if (m) face.matrix.fromArray(m.data);      // posición y giro de la cabeza, en cm
+                const formas = res.faceBlendshapes && res.faceBlendshapes[0];
+                const abre = formas ? (formas.categories.find((c) => c.categoryName === 'jawOpen') || { score: 0 }).score : 0;
+                jawOpen += (Math.max(0, Math.min(1, (abre - 0.08) * 1.8)) - jawOpen) * 0.35;
+                if (jaw) jaw.rotation.x = jawOpen * THREE.MathUtils.degToRad(28);
                 face.matrixWorldNeedsUpdate = true;
             } else if (!stream) {
                 face.visible = true;
@@ -224,6 +236,7 @@
         startPreview();
         // Para pruebas automáticas: fija la vista de la cámara de prueba
         window.__setView = (pos) => { controls.autoRotate = false; camera.position.set(...pos); controls.update(); };
+        window.__setJaw = (v) => { if (jaw) jaw.rotation.x = v * THREE.MathUtils.degToRad(28); };
     </script>
 </body>
 </html>
