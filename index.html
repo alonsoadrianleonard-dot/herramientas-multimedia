@@ -19,7 +19,7 @@
     }
     </script>
     <!-- Estilos de la página -->
-    <link rel="stylesheet" href="css/estilos.css?v=202611041100">
+    <link rel="stylesheet" href="css/estilos.css?v=202611041200">
     <title>HMGRANREPOSITORIO</title>
 </head>
 <body>
@@ -199,7 +199,7 @@
                     <div class="anthem-video">
                         <!-- Video oficial del canal IPNoficial, se reproduce aquí mismo -->
                         <div class="video-frame">
-                            <iframe src="https://www.youtube-nocookie.com/embed/9aHyfqdOUnQ?rel=0"
+                            <iframe id="himnoVideo" src="https://www.youtube-nocookie.com/embed/9aHyfqdOUnQ?rel=0&amp;enablejsapi=1"
                                     title="Himno del IPN (video oficial)"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerpolicy="strict-origin-when-cross-origin"
@@ -213,62 +213,63 @@
                     </div>
                     <div class="anthem-lyrics">
                         <h4 class="i18n" data-es="Letra" data-en="Lyrics">Letra</h4>
-                        <!-- AQUÍ PEGA TÚ LA LETRA DEL HIMNO DEL IPN -->
+                        <p class="letra-ayuda">La letra avanza con el video. Toca un verso para ir a esa parte. Las estrofas en gris no se cantan en esta versión.</p>
+                        <!-- Cada verso tiene data-verso; principal.js lo resalta cuando se canta (tiempos en TIEMPOS_HIMNO) -->
                         <p class="stanza">
-                            Politécnico, fragua encendida<br>
-                            con la chispa del genio creador<br>
-                            en ti forja su nueva estructura<br>
-                            nuestra noble y pujante nación.
+                            <span class="verso" data-verso="e1-1">Politécnico, fragua encendida</span><br>
+                            <span class="verso" data-verso="e1-2">con la chispa del genio creador</span><br>
+                            <span class="verso" data-verso="e1-3">en ti forja su nueva estructura</span><br>
+                            <span class="verso" data-verso="e1-4">nuestra noble y pujante nación.</span>
                         </p>
                         <p class="stanza">
-                            En la aurora de un día venturoso<br>
-                            te dio vida la Revolución;<br>
-                            una estrella te puso en las manos,<br>
-                            ¡que no apague su limpio fulgor!
+                            <span class="verso" data-verso="e2-1">En la aurora de un día venturoso</span><br>
+                            <span class="verso" data-verso="e2-2">te dio vida la Revolución;</span><br>
+                            <span class="verso" data-verso="e2-3">una estrella te puso en las manos,</span><br>
+                            <span class="verso" data-verso="e2-4">¡que no apague su limpio fulgor!</span>
                         </p>
                         <p class="coro-mark">(CORO)</p>
                         <p class="stanza coro">
-                            Su libertad México crea,<br>
-                            surge la Patria, nace la luz;<br>
-                            nos convoca tu voz, Politécnico,<br>
-                            nos conduce tu amor, juventud.
+                            <span class="verso" data-verso="c-1">Su libertad México crea,</span><br>
+                            <span class="verso" data-verso="c-2">surge la Patria, nace la luz;</span><br>
+                            <span class="verso" data-verso="c-3">nos convoca tu voz, Politécnico,</span><br>
+                            <span class="verso" data-verso="c-4">nos conduce tu amor, juventud.</span>
                         </p>
-                        <p class="stanza">
-                            En dinámico anhelo conjugas<br>
-                            las dos fuerzas de un mundo viril:<br>
-                            es la ciencia crisol de esperanzas<br>
-                            es la técnica, fuerza motriz.
+                        <p class="stanza no-cantada">
+                            <span class="verso" data-verso="e3-1">En dinámico anhelo conjugas</span><br>
+                            <span class="verso" data-verso="e3-2">las dos fuerzas de un mundo viril:</span><br>
+                            <span class="verso" data-verso="e3-3">es la ciencia crisol de esperanzas</span><br>
+                            <span class="verso" data-verso="e3-4">es la técnica, fuerza motriz.</span>
                         </p>
-                        <p class="stanza">
-                            Guinda y blanco, indómita almena<br>
-                            que defiende tu ardor juvenil,<br>
-                            oriflama en las lides gallardas<br>
-                            en tus manos triunfal banderín.
+                        <p class="stanza no-cantada">
+                            <span class="verso" data-verso="e4-1">Guinda y blanco, indómita almena</span><br>
+                            <span class="verso" data-verso="e4-2">que defiende tu ardor juvenil,</span><br>
+                            <span class="verso" data-verso="e4-3">oriflama en las lides gallardas</span><br>
+                            <span class="verso" data-verso="e4-4">en tus manos triunfal banderín.</span>
+                        </p>
+                        <p class="coro-mark">(CORO)</p>
+                        <p class="stanza no-cantada">
+                            <span class="verso" data-verso="e5-1">Tus brigadas de nítida albura</span><br>
+                            <span class="verso" data-verso="e5-2">ciencia augusta, saber bondad,</span><br>
+                            <span class="verso" data-verso="e5-3">en su diaria tarea resplandecen</span>
+                        </p>
+                        <p class="stanza no-cantada">
+                            <span class="verso" data-verso="e6-1">Energía que modelas paisajes</span><br>
+                            <span class="verso" data-verso="e6-2">insurgente y activo soñar,</span><br>
+                            <span class="verso" data-verso="e6-3">un humano concepto sostiene</span><br>
+                            <span class="verso" data-verso="e6-4">tu cultura de ser integral.</span>
                         </p>
                         <p class="coro-mark">(CORO)</p>
                         <p class="stanza">
-                            Tus brigadas de nítida albura<br>
-                            ciencia augusta, saber bondad,<br>
-                            en su diaria tarea resplandecen
+                            <span class="verso" data-verso="e7-1">Mueve al hombre tu fe constructiva,</span><br>
+                            <span class="verso" data-verso="e7-2">se oye el ritmo de su despertar,</span><br>
+                            <span class="verso" data-verso="e7-3">sinfonía de las urbes fabriles</span><br>
+                            <span class="verso" data-verso="e7-4">alma agreste de un himno rural.</span>
                         </p>
                         <p class="stanza">
-                            Energía que modelas paisajes<br>
-                            insurgente y activo soñar,<br>
-                            un humano concepto sostiene<br>
-                            tu cultura de ser integral.
-                        </p>
-                        <p class="coro-mark">(CORO)</p>
-                        <p class="stanza">
-                            Mueve al hombre tu fe constructiva,<br>
-                            se oye el ritmo de su despertar,<br>
-                            sinfonía de las urbes fabriles<br>
-                            alma agreste de un himno rural.
-                        </p>
-                        <p class="stanza">
-                            Corazón valeroso y ardiente<br>
-                            que edificas baluarte de paz,<br>
-                            solidaria su acción con tus filas,<br>
-                            vive el pueblo tu hermosa verdad.
+                            <span class="verso" data-verso="e8-1">Corazón valeroso y ardiente</span><br>
+                            <span class="verso" data-verso="e8-2">que edificas baluarte de paz,</span><br>
+                            <span class="verso" data-verso="e8-3">solidaria su acción con tus filas,</span><br>
+                            <span class="verso" data-verso="e8-4">vive el pueblo tu hermosa verdad.</span>
                         </p>
                     </div>
                 </div>
@@ -1679,7 +1680,7 @@
     <div id="google_translate_element"></div>
 
     <!-- Interactividad de la página (pestañas, tema, traductor, etc.) -->
-    <script src="js/principal.js?v=202611041000"></script>
+    <script src="js/principal.js?v=202611041200"></script>
 
     <!-- ===== PERRITO 3D: se construye con figuras básicas de Three.js ===== -->
     <script type="module">

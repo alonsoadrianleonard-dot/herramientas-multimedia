@@ -550,6 +550,44 @@ a {
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 12px 16px;
+    /* La letra va en una caja con su propia barra: avanza sola con el video (principal.js) */
+    position: relative;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.letra-ayuda {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    color: var(--muted-text);
+}
+
+/* Cada verso: se puede tocar para saltar a esa parte del video */
+.anthem-lyrics .verso {
+    border-radius: 4px;
+    padding: 1px 4px;
+    margin-left: -4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.anthem-lyrics .verso.se-canta {
+    cursor: pointer;
+}
+
+.anthem-lyrics .verso.se-canta:hover {
+    background-color: var(--border);
+}
+
+/* El verso que se está cantando */
+.anthem-lyrics .verso.cantando {
+    background-color: var(--accent);
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Estrofas que no se cantan en el video */
+.anthem-lyrics .no-cantada {
+    opacity: 0.45;
 }
 
 /* Cada estrofa de la letra: un verso por renglón y espacio entre estrofas */

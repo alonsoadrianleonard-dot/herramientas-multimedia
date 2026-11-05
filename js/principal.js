@@ -198,3 +198,76 @@ langToggle.addEventListener('click', () => {
         applyManualLanguage('es');
     }
 });
+
+/* ============ HIMNO: la letra avanza con el video ============
+   El video oficial (IPNoficial, 112 s) canta las estrofas 1 y 2, el coro,
+   «Mueve al hombre…», «Corazón valeroso…» y otra vez el coro, un verso cada
+   4 segundos. TIEMPOS_HIMNO dice en qué segundo empieza cada verso; se midieron
+   reconociendo la voz del coro en el audio del video. Con la API de YouTube se
+   lee el segundo actual, se resalta el verso que se canta y la caja de la letra
+   se desplaza sola para que se vea. Tocar un verso lleva el video a esa parte. */
+const letraHimno = document.querySelector('.anthem-lyrics');
+const videoHimno = document.getElementById('himnoVideo');
+if (letraHimno && videoHimno) {
+    const TIEMPOS_HIMNO = [
+        [14.2, 'e1-1'], [18.3, 'e1-2'], [22.3, 'e1-3'], [26.3, 'e1-4'],
+        [30.4, 'e2-1'], [34.4, 'e2-2'], [38.4, 'e2-3'], [42.5, 'e2-4'],
+        [46.2, 'c-1'], [50.3, 'c-2'], [54.3, 'c-3'], [58.2, 'c-4'],
+        [62.3, 'e7-1'], [66.3, 'e7-2'], [70.3, 'e7-3'], [74.4, 'e7-4'],
+        [78.4, 'e8-1'], [82.1, 'e8-2'], [86.4, 'e8-3'], [90.6, 'e8-4'],
+        [94.4, 'c-1'], [98.4, 'c-2'], [101.9, 'c-3'], [105.6, 'c-4'],
+        [110.0, null],                                   // termina el canto
+    ];
+    let versoActual = null;
+    let reproductor = null;
+    let reloj = null;
+
+    function marcarVerso(segundo) {
+        let id = null;
+        for (const [t, v] of TIEMPOS_HIMNO) {
+            if (segundo >= t) id = v; else break;
+        }
+        if (id === versoActual) return;
+        versoActual = id;
+        letraHimno.querySelectorAll('.verso.cantando').forEach((v) => v.classList.remove('cantando'));
+        if (!id) return;
+        const verso = letraHimno.querySelector(`[data-verso="${id}"]`);
+        verso.classList.add('cantando');
+        // Solo se mueve la caja de la letra, no toda la página
+        const arriba = verso.offsetTop - letraHimno.clientHeight / 2 + verso.offsetHeight / 2;
+        letraHimno.scrollTo({ top: Math.max(0, arriba), behavior: 'smooth' });
+    }
+
+    function seguirVideo() {
+        clearInterval(reloj);
+        reloj = setInterval(() => marcarVerso(reproductor.getCurrentTime()), 200);
+    }
+
+    // Tocar un verso lleva el video al momento en que se canta (la primera vez que aparece)
+    letraHimno.querySelectorAll('.verso').forEach((verso) => {
+        const momento = TIEMPOS_HIMNO.find(([, v]) => v === verso.dataset.verso);
+        if (!momento) return;                            // estrofa que no se canta en este video
+        verso.classList.add('se-canta');
+        verso.addEventListener('click', () => {
+            if (!reproductor || !reproductor.seekTo) return;
+            reproductor.seekTo(momento[0], true);
+            reproductor.playVideo();
+            marcarVerso(momento[0]);
+        });
+    });
+
+    // La API de YouTube llama a esta función cuando ya cargó
+    window.onYouTubeIframeAPIReady = () => {
+        reproductor = new YT.Player('himnoVideo', {
+            events: {
+                onStateChange: (e) => {
+                    if (e.data === YT.PlayerState.PLAYING) seguirVideo();
+                    else { clearInterval(reloj); marcarVerso(reproductor.getCurrentTime()); }
+                },
+            },
+        });
+    };
+    const api = document.createElement('script');
+    api.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(api);
+}
