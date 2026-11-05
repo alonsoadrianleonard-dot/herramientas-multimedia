@@ -19,7 +19,7 @@
     }
     </script>
     <!-- Estilos de la página -->
-    <link rel="stylesheet" href="css/estilos.css?v=202611041200">
+    <link rel="stylesheet" href="css/estilos.css?v=202611041330">
     <title>HMGRANREPOSITORIO</title>
 </head>
 <body>
@@ -211,66 +211,33 @@
                                data-es="Ábrelo en YouTube" data-en="Open it on YouTube">Ábrelo en YouTube</a>
                         </p>
                     </div>
-                    <div class="anthem-lyrics">
-                        <h4 class="i18n" data-es="Letra" data-en="Lyrics">Letra</h4>
-                        <p class="letra-ayuda">La letra avanza con el video. Toca un verso para ir a esa parte. Las estrofas en gris no se cantan en esta versión.</p>
-                        <!-- Cada verso tiene data-verso; principal.js lo resalta cuando se canta (tiempos en TIEMPOS_HIMNO) -->
-                        <p class="stanza">
-                            <span class="verso" data-verso="e1-1">Politécnico, fragua encendida</span><br>
-                            <span class="verso" data-verso="e1-2">con la chispa del genio creador</span><br>
-                            <span class="verso" data-verso="e1-3">en ti forja su nueva estructura</span><br>
-                            <span class="verso" data-verso="e1-4">nuestra noble y pujante nación.</span>
-                        </p>
-                        <p class="stanza">
-                            <span class="verso" data-verso="e2-1">En la aurora de un día venturoso</span><br>
-                            <span class="verso" data-verso="e2-2">te dio vida la Revolución;</span><br>
-                            <span class="verso" data-verso="e2-3">una estrella te puso en las manos,</span><br>
-                            <span class="verso" data-verso="e2-4">¡que no apague su limpio fulgor!</span>
-                        </p>
-                        <p class="coro-mark">(CORO)</p>
-                        <p class="stanza coro">
-                            <span class="verso" data-verso="c-1">Su libertad México crea,</span><br>
-                            <span class="verso" data-verso="c-2">surge la Patria, nace la luz;</span><br>
-                            <span class="verso" data-verso="c-3">nos convoca tu voz, Politécnico,</span><br>
-                            <span class="verso" data-verso="c-4">nos conduce tu amor, juventud.</span>
-                        </p>
-                        <p class="stanza no-cantada">
-                            <span class="verso" data-verso="e3-1">En dinámico anhelo conjugas</span><br>
-                            <span class="verso" data-verso="e3-2">las dos fuerzas de un mundo viril:</span><br>
-                            <span class="verso" data-verso="e3-3">es la ciencia crisol de esperanzas</span><br>
-                            <span class="verso" data-verso="e3-4">es la técnica, fuerza motriz.</span>
-                        </p>
-                        <p class="stanza no-cantada">
-                            <span class="verso" data-verso="e4-1">Guinda y blanco, indómita almena</span><br>
-                            <span class="verso" data-verso="e4-2">que defiende tu ardor juvenil,</span><br>
-                            <span class="verso" data-verso="e4-3">oriflama en las lides gallardas</span><br>
-                            <span class="verso" data-verso="e4-4">en tus manos triunfal banderín.</span>
-                        </p>
-                        <p class="coro-mark">(CORO)</p>
-                        <p class="stanza no-cantada">
-                            <span class="verso" data-verso="e5-1">Tus brigadas de nítida albura</span><br>
-                            <span class="verso" data-verso="e5-2">ciencia augusta, saber bondad,</span><br>
-                            <span class="verso" data-verso="e5-3">en su diaria tarea resplandecen</span>
-                        </p>
-                        <p class="stanza no-cantada">
-                            <span class="verso" data-verso="e6-1">Energía que modelas paisajes</span><br>
-                            <span class="verso" data-verso="e6-2">insurgente y activo soñar,</span><br>
-                            <span class="verso" data-verso="e6-3">un humano concepto sostiene</span><br>
-                            <span class="verso" data-verso="e6-4">tu cultura de ser integral.</span>
-                        </p>
-                        <p class="coro-mark">(CORO)</p>
-                        <p class="stanza">
-                            <span class="verso" data-verso="e7-1">Mueve al hombre tu fe constructiva,</span><br>
-                            <span class="verso" data-verso="e7-2">se oye el ritmo de su despertar,</span><br>
-                            <span class="verso" data-verso="e7-3">sinfonía de las urbes fabriles</span><br>
-                            <span class="verso" data-verso="e7-4">alma agreste de un himno rural.</span>
-                        </p>
-                        <p class="stanza">
-                            <span class="verso" data-verso="e8-1">Corazón valeroso y ardiente</span><br>
-                            <span class="verso" data-verso="e8-2">que edificas baluarte de paz,</span><br>
-                            <span class="verso" data-verso="e8-3">solidaria su acción con tus filas,</span><br>
-                            <span class="verso" data-verso="e8-4">vive el pueblo tu hermosa verdad.</span>
-                        </p>
+                    <!-- Letra que se canta en el video, en orden. data-t = segundo en que empieza cada verso;
+                         principal.js resalta el verso actual y desplaza la letra (como en Spotify) -->
+                    <div class="anthem-lyrics" data-fin="110" aria-label="Letra del Himno del IPN">
+                        <p class="verso" data-t="14.2">Politécnico, fragua encendida</p>
+                        <p class="verso" data-t="18.3">con la chispa del genio creador</p>
+                        <p class="verso" data-t="22.3">en ti forja su nueva estructura</p>
+                        <p class="verso" data-t="26.3">nuestra noble y pujante nación.</p>
+                        <p class="verso" data-t="30.4">En la aurora de un día venturoso</p>
+                        <p class="verso" data-t="34.4">te dio vida la Revolución;</p>
+                        <p class="verso" data-t="38.4">una estrella te puso en las manos,</p>
+                        <p class="verso" data-t="42.5">¡que no apague su limpio fulgor!</p>
+                        <p class="verso" data-t="46.2">Su libertad México crea,</p>
+                        <p class="verso" data-t="50.3">surge la Patria, nace la luz;</p>
+                        <p class="verso" data-t="54.3">nos convoca tu voz, Politécnico,</p>
+                        <p class="verso" data-t="58.2">nos conduce tu amor, juventud.</p>
+                        <p class="verso" data-t="62.3">Mueve al hombre tu fe constructiva,</p>
+                        <p class="verso" data-t="66.3">se oye el ritmo de su despertar,</p>
+                        <p class="verso" data-t="70.3">sinfonía de las urbes fabriles</p>
+                        <p class="verso" data-t="74.4">alma agreste de un himno rural.</p>
+                        <p class="verso" data-t="78.4">Corazón valeroso y ardiente</p>
+                        <p class="verso" data-t="82.1">que edificas baluarte de paz,</p>
+                        <p class="verso" data-t="86.4">solidaria su acción con tus filas,</p>
+                        <p class="verso" data-t="90.6">vive el pueblo tu hermosa verdad.</p>
+                        <p class="verso" data-t="94.4">Su libertad México crea,</p>
+                        <p class="verso" data-t="98.4">surge la Patria, nace la luz;</p>
+                        <p class="verso" data-t="101.9">nos convoca tu voz, Politécnico,</p>
+                        <p class="verso" data-t="105.6">nos conduce tu amor, juventud.</p>
                     </div>
                 </div>
             </section>
@@ -1680,7 +1647,7 @@
     <div id="google_translate_element"></div>
 
     <!-- Interactividad de la página (pestañas, tema, traductor, etc.) -->
-    <script src="js/principal.js?v=202611041200"></script>
+    <script src="js/principal.js?v=202611041330"></script>
 
     <!-- ===== PERRITO 3D: se construye con figuras básicas de Three.js ===== -->
     <script type="module">

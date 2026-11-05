@@ -199,60 +199,63 @@ langToggle.addEventListener('click', () => {
     }
 });
 
-/* ============ HIMNO: la letra avanza con el video ============
+/* ============ HIMNO: la letra avanza con el video (como en Spotify) ============
    El video oficial (IPNoficial, 112 s) canta las estrofas 1 y 2, el coro,
    «Mueve al hombre…», «Corazón valeroso…» y otra vez el coro, un verso cada
-   4 segundos. TIEMPOS_HIMNO dice en qué segundo empieza cada verso; se midieron
+   4 segundos. Cada verso trae en data-t el segundo en que empieza; se midieron
    reconociendo la voz del coro en el audio del video. Con la API de YouTube se
-   lee el segundo actual, se resalta el verso que se canta y la caja de la letra
-   se desplaza sola para que se vea. Tocar un verso lleva el video a esa parte. */
+   lee el segundo actual: el verso que se canta se resalta, los que ya pasaron
+   quedan más tenues y la letra se desplaza sola. Tocar un verso lleva el video ahí. */
 const letraHimno = document.querySelector('.anthem-lyrics');
 const videoHimno = document.getElementById('himnoVideo');
 if (letraHimno && videoHimno) {
-    const TIEMPOS_HIMNO = [
-        [14.2, 'e1-1'], [18.3, 'e1-2'], [22.3, 'e1-3'], [26.3, 'e1-4'],
-        [30.4, 'e2-1'], [34.4, 'e2-2'], [38.4, 'e2-3'], [42.5, 'e2-4'],
-        [46.2, 'c-1'], [50.3, 'c-2'], [54.3, 'c-3'], [58.2, 'c-4'],
-        [62.3, 'e7-1'], [66.3, 'e7-2'], [70.3, 'e7-3'], [74.4, 'e7-4'],
-        [78.4, 'e8-1'], [82.1, 'e8-2'], [86.4, 'e8-3'], [90.6, 'e8-4'],
-        [94.4, 'c-1'], [98.4, 'c-2'], [101.9, 'c-3'], [105.6, 'c-4'],
-        [110.0, null],                                   // termina el canto
-    ];
-    let versoActual = null;
+    const versos = [...letraHimno.querySelectorAll('.verso')];
+    const tiempos = versos.map((v) => parseFloat(v.dataset.t));
+    const fin = parseFloat(letraHimno.dataset.fin);       // después de este segundo ya no se canta
+    let actual = -2;
     let reproductor = null;
     let reloj = null;
 
     function marcarVerso(segundo) {
-        let id = null;
-        for (const [t, v] of TIEMPOS_HIMNO) {
-            if (segundo >= t) id = v; else break;
-        }
-        if (id === versoActual) return;
-        versoActual = id;
-        letraHimno.querySelectorAll('.verso.cantando').forEach((v) => v.classList.remove('cantando'));
-        if (!id) return;
-        const verso = letraHimno.querySelector(`[data-verso="${id}"]`);
-        verso.classList.add('cantando');
-        // Solo se mueve la caja de la letra, no toda la página
-        const arriba = verso.offsetTop - letraHimno.clientHeight / 2 + verso.offsetHeight / 2;
+        let n = -1;                                        // -1 = todavía no empieza a cantarse
+        while (n + 1 < tiempos.length && segundo >= tiempos[n + 1]) n++;
+        if (segundo >= fin) n = versos.length;             // ya terminó: todos quedan como cantados
+        if (n === actual) return;
+        actual = n;
+        versos.forEach((v, k) => {
+            v.classList.toggle('cantando', k === n);
+            v.classList.toggle('cantado', k < n);
+        });
+        // El verso actual se coloca a un tercio de la caja; solo se mueve la letra, no la página
+        const guia = versos[Math.min(Math.max(n, 0), versos.length - 1)];
+        const arriba = guia.offsetTop - letraHimno.clientHeight / 3;
         letraHimno.scrollTo({ top: Math.max(0, arriba), behavior: 'smooth' });
     }
 
     function seguirVideo() {
         clearInterval(reloj);
-        reloj = setInterval(() => marcarVerso(reproductor.getCurrentTime()), 200);
+        reloj = setInterval(() => marcarVerso(reproductor.getCurrentTime()), 150);
     }
 
-    // Tocar un verso lleva el video al momento en que se canta (la primera vez que aparece)
-    letraHimno.querySelectorAll('.verso').forEach((verso) => {
-        const momento = TIEMPOS_HIMNO.find(([, v]) => v === verso.dataset.verso);
-        if (!momento) return;                            // estrofa que no se canta en este video
-        verso.classList.add('se-canta');
+    // Tamaño de letra: el más grande (hasta 1.35rem) con el que el verso más largo cabe en un renglón
+    function ajustarLetra() {
+        const ancho = letraHimno.clientWidth - 44;            // menos el relleno de los lados
+        if (ancho <= 0) return;
+        letraHimno.style.setProperty('--letra-tam', '20px');
+        const masLargo = Math.max(...versos.map((v) => v.scrollWidth));
+        const tam = Math.min(21.6, Math.max(12, 20 * ancho / masLargo * 0.97));
+        letraHimno.style.setProperty('--letra-tam', tam.toFixed(1) + 'px');
+    }
+    ajustarLetra();
+    if ('ResizeObserver' in window) new ResizeObserver(ajustarLetra).observe(letraHimno);
+    if (document.fonts) document.fonts.ready.then(ajustarLetra);
+
+    versos.forEach((verso, k) => {
         verso.addEventListener('click', () => {
             if (!reproductor || !reproductor.seekTo) return;
-            reproductor.seekTo(momento[0], true);
+            reproductor.seekTo(tiempos[k], true);
             reproductor.playVideo();
-            marcarVerso(momento[0]);
+            marcarVerso(tiempos[k]);
         });
     });
 
