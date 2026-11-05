@@ -871,14 +871,13 @@ font font {
 
 /* =====================================================================
    ESTILO DE CADA TEMA
-   Cada pestaña del menú tiene su color, su tipo de letra, su forma y su
+   Cada pestaña del menú (menos INICIO, que conserva el estilo original) tiene su color, su tipo de letra, su forma y su
    textura. Las variables se definen en la sección (para su contenido) y en
    el body con data-tema (para el encabezado y el menú; lo pone principal.js).
      --tema       color principal          --tema-rgb   el mismo color en R, G, B
      --tema-2     segundo color            --tema-oscuro / --tema-claro  títulos en modo claro / oscuro
    Las texturas son degradados o SVG dentro del CSS: no hay imágenes aparte.
    ===================================================================== */
-#INICIO,      body[data-tema="INICIO"]      { --tema: #800032; --tema-rgb: 128, 0, 50;    --tema-2: #b8860b; --tema-oscuro: #5c0024; --tema-claro: #f4a6c4; }
 #UNIDAD1,     body[data-tema="UNIDAD1"]     { --tema: #e0601b; --tema-rgb: 224, 96, 27;   --tema-2: #f2a516; --tema-oscuro: #9c3c0a; --tema-claro: #ffc49a; }
 #UNIDAD2,     body[data-tema="UNIDAD2"]     { --tema: #0a8f9c; --tema-rgb: 10, 143, 156;  --tema-2: #22c7d6; --tema-oscuro: #075a63; --tema-claro: #8ee9f2; }
 #UNIDAD3,     body[data-tema="UNIDAD3"]     { --tema: #2e8b4f; --tema-rgb: 46, 139, 79;   --tema-2: #7bc043; --tema-oscuro: #1b5c33; --tema-claro: #a6e3b8; }
@@ -889,7 +888,6 @@ font font {
 body[data-tema] .site-header { border-bottom: 5px solid var(--tema); transition: border-color 0.3s; }
 body[data-tema] .site-footer { border-top: 5px solid var(--tema); }
 .sidebar .tab-btn { border-left: 5px solid transparent; transition: background-color 0.2s, border-color 0.2s; }
-.sidebar .tab-btn[data-tab="INICIO"]      { --c: #c2185b; }
 .sidebar .tab-btn[data-tab="UNIDAD1"]     { --c: #e0601b; }
 .sidebar .tab-btn[data-tab="UNIDAD2"]     { --c: #0a8f9c; }
 .sidebar .tab-btn[data-tab="UNIDAD3"]     { --c: #2e8b4f; }
@@ -897,41 +895,26 @@ body[data-tema] .site-footer { border-top: 5px solid var(--tema); }
 .sidebar .tab-btn[data-tab="REFERENCIAS"] { --c: #8a5a2b; }
 .sidebar .tab-btn { border-left-color: var(--c); }
 .sidebar .tab-btn:hover, .sidebar .tab-btn.active { background-color: var(--c); }
+.sidebar .tab-btn[data-tab="INICIO"] { --c: var(--accent); border-left-color: transparent; }
 body[data-tema] .sidebar .sub-link:hover { background-color: var(--tema); }
 
-/* --- Lo que comparten todos los temas: usar su color --- */
-.tab-panel { border-top: 6px solid var(--tema, var(--accent)); background-repeat: repeat; }
-.tab-panel h3, .tab-panel h4 { color: var(--tema-oscuro, var(--accent)); }
-body.dark-mode .tab-panel h3, body.dark-mode .tab-panel h4 { color: var(--tema-claro, #9ccbf5); }
-.tab-panel h2 { color: var(--tema-oscuro, var(--heading)); border-bottom-color: var(--tema, var(--heading)); }
-body.dark-mode .tab-panel h2 { color: var(--tema-claro, var(--heading)); }
-.tab-panel a { color: var(--tema-oscuro, var(--accent)); }
-body.dark-mode .tab-panel a { color: var(--tema-claro, var(--accent)); }
-.tab-panel .unit-label { color: var(--tema, var(--muted-text)); }
-.tab-panel .topic-btn { background: linear-gradient(135deg, var(--tema-oscuro), var(--tema)); }
-.tab-panel .topic-item { border-color: rgba(var(--tema-rgb), 0.35); }
-.tab-panel .chip-icon { color: var(--tema); }
-.tab-panel .media-chip strong { color: var(--tema-oscuro); }
-body.dark-mode .tab-panel .media-chip strong { color: var(--tema-claro); }
-.tab-panel .competencia { border-left-color: var(--tema); }
-.tab-panel .tour-btn { background: var(--tema); }
-.tab-panel .tour-card:hover .tour-btn { background: var(--tema-oscuro); }
-
-/* ---------- INICIO: institucional, guinda y dorado, letra con serifa, textura de rayas finas ---------- */
-#INICIO {
-    font-family: Georgia, "Times New Roman", serif;
-    background-image: repeating-linear-gradient(45deg, rgba(var(--tema-rgb), 0.045) 0 2px, transparent 2px 14px);
-}
-#INICIO h2 {
-    text-align: center; letter-spacing: 3px; text-transform: uppercase;
-    border-bottom: 3px double var(--tema-2); padding-bottom: 10px;
-}
-#INICIO h3 { font-style: italic; }
-#INICIO .hero { border-bottom: 2px solid var(--tema-2); }
-#INICIO .hero-text { color: var(--tema-oscuro); }
-body.dark-mode #INICIO .hero-text { color: var(--tema-claro); }
-#INICIO .hero-logo, #INICIO .brand-name { color: var(--tema-oscuro); }
-body.dark-mode #INICIO .hero-logo, body.dark-mode #INICIO .brand-name { color: var(--tema-claro); }
+/* --- Lo que comparten los temas (INICIO se queda con el estilo original) --- */
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) { border-top: 6px solid var(--tema, var(--accent)); background-repeat: repeat; }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h3, :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h4 { color: var(--tema-oscuro, var(--accent)); }
+body.dark-mode :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h3, body.dark-mode :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h4 { color: var(--tema-claro, #9ccbf5); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h2 { color: var(--tema-oscuro, var(--heading)); border-bottom-color: var(--tema, var(--heading)); }
+body.dark-mode :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) h2 { color: var(--tema-claro, var(--heading)); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) a { color: var(--tema-oscuro, var(--accent)); }
+body.dark-mode :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) a { color: var(--tema-claro, var(--accent)); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .unit-label { color: var(--tema, var(--muted-text)); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .topic-btn { background: linear-gradient(135deg, var(--tema-oscuro), var(--tema)); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .topic-item { border-color: rgba(var(--tema-rgb), 0.35); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .chip-icon { color: var(--tema); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .media-chip strong { color: var(--tema-oscuro); }
+body.dark-mode :is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .media-chip strong { color: var(--tema-claro); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .competencia { border-left-color: var(--tema); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .tour-btn { background: var(--tema); }
+:is(#UNIDAD1, #UNIDAD2, #UNIDAD3, #ENTORNO, #REFERENCIAS) .tour-card:hover .tour-btn { background: var(--tema-oscuro); }
 
 /* ---------- ¿QUÉ ES LA MULTIMEDIA?: alegre, naranja, esquinas redondas, textura de puntos (como semitono de imprenta) ---------- */
 #UNIDAD1 {
