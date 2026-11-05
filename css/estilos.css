@@ -868,3 +868,151 @@ font font {
         display: none; /* en celular el menú va arriba; sin submenú */
     }
 }
+
+/* =====================================================================
+   ESTILO DE CADA TEMA
+   Cada pestaña del menú tiene su color, su tipo de letra, su forma y su
+   textura. Las variables se definen en la sección (para su contenido) y en
+   el body con data-tema (para el encabezado y el menú; lo pone principal.js).
+     --tema       color principal          --tema-rgb   el mismo color en R, G, B
+     --tema-2     segundo color            --tema-oscuro / --tema-claro  títulos en modo claro / oscuro
+   Las texturas son degradados o SVG dentro del CSS: no hay imágenes aparte.
+   ===================================================================== */
+#INICIO,      body[data-tema="INICIO"]      { --tema: #800032; --tema-rgb: 128, 0, 50;    --tema-2: #b8860b; --tema-oscuro: #5c0024; --tema-claro: #f4a6c4; }
+#UNIDAD1,     body[data-tema="UNIDAD1"]     { --tema: #e0601b; --tema-rgb: 224, 96, 27;   --tema-2: #f2a516; --tema-oscuro: #9c3c0a; --tema-claro: #ffc49a; }
+#UNIDAD2,     body[data-tema="UNIDAD2"]     { --tema: #0a8f9c; --tema-rgb: 10, 143, 156;  --tema-2: #22c7d6; --tema-oscuro: #075a63; --tema-claro: #8ee9f2; }
+#UNIDAD3,     body[data-tema="UNIDAD3"]     { --tema: #2e8b4f; --tema-rgb: 46, 139, 79;   --tema-2: #7bc043; --tema-oscuro: #1b5c33; --tema-claro: #a6e3b8; }
+#ENTORNO,     body[data-tema="ENTORNO"]     { --tema: #6a4fb3; --tema-rgb: 106, 79, 179;  --tema-2: #c06bd6; --tema-oscuro: #45318a; --tema-claro: #cdbcf5; }
+#REFERENCIAS, body[data-tema="REFERENCIAS"] { --tema: #8a5a2b; --tema-rgb: 138, 90, 43;   --tema-2: #b08a5a; --tema-oscuro: #5e3c1a; --tema-claro: #e8c9a0; }
+
+/* --- Encabezado y menú: toman el color del tema abierto --- */
+body[data-tema] .site-header { border-bottom: 5px solid var(--tema); transition: border-color 0.3s; }
+body[data-tema] .site-footer { border-top: 5px solid var(--tema); }
+.sidebar .tab-btn { border-left: 5px solid transparent; transition: background-color 0.2s, border-color 0.2s; }
+.sidebar .tab-btn[data-tab="INICIO"]      { --c: #c2185b; }
+.sidebar .tab-btn[data-tab="UNIDAD1"]     { --c: #e0601b; }
+.sidebar .tab-btn[data-tab="UNIDAD2"]     { --c: #0a8f9c; }
+.sidebar .tab-btn[data-tab="UNIDAD3"]     { --c: #2e8b4f; }
+.sidebar .tab-btn[data-tab="ENTORNO"]     { --c: #6a4fb3; }
+.sidebar .tab-btn[data-tab="REFERENCIAS"] { --c: #8a5a2b; }
+.sidebar .tab-btn { border-left-color: var(--c); }
+.sidebar .tab-btn:hover, .sidebar .tab-btn.active { background-color: var(--c); }
+body[data-tema] .sidebar .sub-link:hover { background-color: var(--tema); }
+
+/* --- Lo que comparten todos los temas: usar su color --- */
+.tab-panel { border-top: 6px solid var(--tema, var(--accent)); background-repeat: repeat; }
+.tab-panel h3, .tab-panel h4 { color: var(--tema-oscuro, var(--accent)); }
+body.dark-mode .tab-panel h3, body.dark-mode .tab-panel h4 { color: var(--tema-claro, #9ccbf5); }
+.tab-panel h2 { color: var(--tema-oscuro, var(--heading)); border-bottom-color: var(--tema, var(--heading)); }
+body.dark-mode .tab-panel h2 { color: var(--tema-claro, var(--heading)); }
+.tab-panel a { color: var(--tema-oscuro, var(--accent)); }
+body.dark-mode .tab-panel a { color: var(--tema-claro, var(--accent)); }
+.tab-panel .unit-label { color: var(--tema, var(--muted-text)); }
+.tab-panel .topic-btn { background: linear-gradient(135deg, var(--tema-oscuro), var(--tema)); }
+.tab-panel .topic-item { border-color: rgba(var(--tema-rgb), 0.35); }
+.tab-panel .chip-icon { color: var(--tema); }
+.tab-panel .media-chip strong { color: var(--tema-oscuro); }
+body.dark-mode .tab-panel .media-chip strong { color: var(--tema-claro); }
+.tab-panel .competencia { border-left-color: var(--tema); }
+.tab-panel .tour-btn { background: var(--tema); }
+.tab-panel .tour-card:hover .tour-btn { background: var(--tema-oscuro); }
+
+/* ---------- INICIO: institucional, guinda y dorado, letra con serifa, textura de rayas finas ---------- */
+#INICIO {
+    font-family: Georgia, "Times New Roman", serif;
+    background-image: repeating-linear-gradient(45deg, rgba(var(--tema-rgb), 0.045) 0 2px, transparent 2px 14px);
+}
+#INICIO h2 {
+    text-align: center; letter-spacing: 3px; text-transform: uppercase;
+    border-bottom: 3px double var(--tema-2); padding-bottom: 10px;
+}
+#INICIO h3 { font-style: italic; }
+#INICIO .hero { border-bottom: 2px solid var(--tema-2); }
+#INICIO .hero-text { color: var(--tema-oscuro); }
+body.dark-mode #INICIO .hero-text { color: var(--tema-claro); }
+#INICIO .hero-logo, #INICIO .brand-name { color: var(--tema-oscuro); }
+body.dark-mode #INICIO .hero-logo, body.dark-mode #INICIO .brand-name { color: var(--tema-claro); }
+
+/* ---------- ¿QUÉ ES LA MULTIMEDIA?: alegre, naranja, esquinas redondas, textura de puntos (como semitono de imprenta) ---------- */
+#UNIDAD1 {
+    font-family: "Trebuchet MS", Verdana, sans-serif;
+    border-radius: 18px;
+    background-image: radial-gradient(rgba(var(--tema-rgb), 0.16) 1.4px, transparent 1.8px);
+    background-size: 16px 16px;
+}
+#UNIDAD1 h2 { border-bottom: none; display: inline-block; padding: 6px 18px; border-radius: 999px;
+              background: linear-gradient(90deg, var(--tema), var(--tema-2)); color: #fff; }
+body.dark-mode #UNIDAD1 h2 { color: #fff; }
+#UNIDAD1 h3 { border-left: 6px solid var(--tema-2); padding-left: 10px; border-radius: 3px; }
+#UNIDAD1 .topic-item { border-radius: 18px; }
+#UNIDAD1 .topic-btn { background: linear-gradient(90deg, var(--tema), var(--tema-2)); border-radius: 0; }
+#UNIDAD1 .media-chip { border-radius: 16px; border-top: 4px solid var(--tema-2); }
+
+/* ---------- REALIDAD AUMENTADA: tecnológico, turquesa, esquinas rectas con marcas de visor, textura de cuadrícula ---------- */
+#UNIDAD2 {
+    font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
+    border-radius: 0;
+    background-image:
+        linear-gradient(rgba(var(--tema-rgb), 0.09) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(var(--tema-rgb), 0.09) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+#UNIDAD2 h2 { text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px dashed var(--tema); }
+#UNIDAD2 h2::before { content: "[ "; color: var(--tema-2); }
+#UNIDAD2 h2::after { content: " ]"; color: var(--tema-2); }
+#UNIDAD2 h3 { position: relative; padding: 4px 12px; }
+#UNIDAD2 h3::before, #UNIDAD2 h3::after { content: ""; position: absolute; width: 10px; height: 10px; border: 2px solid var(--tema-2); }
+#UNIDAD2 h3::before { left: 0; top: 0; border-right: 0; border-bottom: 0; }
+#UNIDAD2 h3::after { left: 0; bottom: 0; border-right: 0; border-top: 0; }
+#UNIDAD2 .topic-item { border-radius: 0; box-shadow: 0 0 0 1px rgba(var(--tema-rgb), 0.25), 0 0 14px rgba(var(--tema-rgb), 0.15); }
+#UNIDAD2 .topic-btn { border-radius: 0; letter-spacing: 0.5px; }
+#UNIDAD2 .media-chip { border-radius: 0; border: 1px solid var(--tema); }
+
+/* ---------- MULTIMEDIA EN LA INFORMÁTICA: estilo de código, verde, letra monoespaciada, textura de circuito ---------- */
+#UNIDAD3 {
+    border-radius: 4px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cg fill='none' stroke='%232e8b4f' stroke-opacity='0.13' stroke-width='1.5'%3E%3Cpath d='M0 15h20v15h20M40 30V0M30 60V45h30M10 60V40'/%3E%3C/g%3E%3Cg fill='%232e8b4f' fill-opacity='0.18'%3E%3Ccircle cx='40' cy='30' r='2.5'/%3E%3Ccircle cx='30' cy='45' r='2.5'/%3E%3Ccircle cx='10' cy='40' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 60px 60px;
+}
+#UNIDAD3 h2, #UNIDAD3 h3, #UNIDAD3 h4, #UNIDAD3 .unit-label { font-family: Menlo, Consolas, "Courier New", monospace; }
+#UNIDAD3 h2 { border-bottom: 2px solid var(--tema); }
+#UNIDAD3 h2::before { content: "> "; color: var(--tema-2); }
+#UNIDAD3 h3::before { content: "// "; color: var(--tema-2); }
+#UNIDAD3 .topic-btn { font-family: Menlo, Consolas, "Courier New", monospace; font-size: 0.95rem; border-radius: 0; }
+#UNIDAD3 .topic-item { border-radius: 4px; border-left: 4px solid var(--tema-2); }
+#UNIDAD3 .media-chip { border-radius: 4px; border-style: dashed; border-color: var(--tema); }
+
+/* ---------- ENTORNO VIRTUAL: espacial, morado jacaranda, sombras suaves, textura de hexágonos ---------- */
+#ENTORNO {
+    border-radius: 14px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='72'%3E%3Cpath d='M21 0l21 12v24L21 48 0 36V12zM21 48v24M0 36l-21 12M42 36l21 12' fill='none' stroke='%236a4fb3' stroke-opacity='0.12' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-size: 42px 72px;
+    box-shadow: 0 10px 30px rgba(var(--tema-rgb), 0.12);
+}
+#ENTORNO h2 { border-bottom: none; padding-bottom: 6px; background: linear-gradient(90deg, var(--tema), var(--tema-2));
+              -webkit-background-clip: text; background-clip: text; color: transparent; font-size: 1.9rem; }
+body.dark-mode #ENTORNO h2 { color: transparent; background: linear-gradient(90deg, var(--tema-claro), #f0c4fa);
+                             -webkit-background-clip: text; background-clip: text; }
+#ENTORNO h2::after { content: ""; display: block; height: 4px; margin-top: 6px; border-radius: 4px;
+                     background: linear-gradient(90deg, var(--tema), var(--tema-2), transparent); }
+#ENTORNO h3 { padding: 8px 14px; border-radius: 10px; background: rgba(var(--tema-rgb), 0.08); }
+#ENTORNO .filter-frame, #ENTORNO .tour-card { border-radius: 14px; box-shadow: 0 8px 24px rgba(var(--tema-rgb), 0.25); border-color: rgba(var(--tema-rgb), 0.4); }
+
+/* ---------- REFERENCIAS: biblioteca, café sepia, letra con serifa, textura de hoja rayada con margen ---------- */
+#REFERENCIAS {
+    font-family: Georgia, "Times New Roman", serif;
+    border-radius: 2px;
+    background-image:
+        linear-gradient(90deg, transparent 38px, rgba(200, 60, 60, 0.25) 38px 40px, transparent 40px),
+        repeating-linear-gradient(to bottom, transparent 0 29px, rgba(var(--tema-rgb), 0.14) 29px 30px);
+    padding-left: 56px;
+}
+#REFERENCIAS h2 { font-variant: small-caps; letter-spacing: 1px; border-bottom: 1px solid var(--tema); }
+#REFERENCIAS .apa-refs p { line-height: 30px; }
+
+@media (max-width: 700px) {
+    #REFERENCIAS { padding-left: 44px; background-image:
+        linear-gradient(90deg, transparent 28px, rgba(200, 60, 60, 0.25) 28px 30px, transparent 30px),
+        repeating-linear-gradient(to bottom, transparent 0 29px, rgba(var(--tema-rgb), 0.14) 29px 30px); }
+    #ENTORNO h2 { font-size: 1.5rem; }
+}

@@ -73,8 +73,11 @@ tabButtons.forEach((btn) => {
         btn.classList.add('active');
         const targetId = btn.getAttribute('data-tab');
         document.getElementById(targetId).classList.add('active');
+        // Cada tema tiene su color: el encabezado y el menú lo toman de aquí (ver «ESTILO DE CADA TEMA» en estilos.css)
+        document.body.dataset.tema = targetId;
     });
 });
+document.body.dataset.tema = document.querySelector('.tab-btn.active')?.dataset.tab || 'INICIO';
 
 /* ============ SUBMENÚ: salta al tema dentro de la unidad ============ */
 document.querySelectorAll('.sub-link').forEach((link) => {
